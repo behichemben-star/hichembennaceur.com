@@ -1,0 +1,7 @@
+# Local smoke test: docker compose up --build
+# Then open http://localhost:8080
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"

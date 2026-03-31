@@ -1,38 +1,21 @@
-# Stage 1: Build the Application
-# We use node:18 as the base for building and installing dependencies.
-FROM node:18 AS build
+# Static Astro: build with Node, serve with nginx (Fly.io expects a long-lived HTTP listener on internal_port).
+# syntax=docker/dockerfile:1
 
-# Set the working directory inside the container
-WORKDIR /usr/src/app
+FROM node:22-alpine AS build
+WORKDIR /app
 
-# Copy package.json and package-lock.json first to leverage Docker caching.
-# If these files don't change, subsequent builds can skip 'npm install'.
-COPY package*.json ./
+COPY package.json package-lock.json ./
+RUN npm ci
 
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application source code
 COPY . .
+RUN npm run build
 
-# Stage 2: Create the Final Production Image
-# We use node:18 as the runtime image with all the necessary tools.
-FROM node:18
+FROM nginx:1.27-alpine
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.fly.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Set the working directory
-WORKDIR /usr/src/app
+# Must match [[http_service]] internal_port in fly.toml
+EXPOSE 8080
 
-# Copy the node_modules and built application files from the 'build' stage
-COPY --from=build /usr/src/app/node_modules ./node_modules
-COPY --from=build /usr/src/app/package*.json ./
-COPY --from=build /usr/src/app .
-
-# Expose the port your app runs on
-ENV PORT=8080
-EXPOSE $PORT
-
-# Run the application using the non-root user (recommended for security)
-USER node
-
-# Define the command to start your application
-CMD [ "node", "index.js" ]
+CMD ["nginx", "-g", "daemon off;"]

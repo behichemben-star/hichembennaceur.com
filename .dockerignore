@@ -1,27 +1,22 @@
-# Dependency/Build Directories
 node_modules
-npm-debug.log
-.npm
-
-# Project Files
+dist
 .git
-.gitignore
-.dockerignore
-Dockerfile
-fly.toml # Fly.io configuration file
-
-# Environment/Configuration Files
+.github
+.astro
+.cursor
+.claude
+mcps
+extracted
 .env
-.DS_Store
+.env.*
 *.log
-
-# Development/Testing files and directories (adjust as needed)
+npm-debug.log*
+.npm
+.DS_Store
+.idea
 test
 tests
 docs
 coverage
 tmp
 *~
-# Any files generated during development or testing, e.g.:
-dist
-build
