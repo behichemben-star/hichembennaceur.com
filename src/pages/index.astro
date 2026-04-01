@@ -106,14 +106,13 @@ import Layout from '../layouts/Layout.astro';
 
   /* ─── HERO ─── */
   .hero {
-    padding: 80px 48px 64px;
-    max-width: 1200px;
+    padding: 32px 28px 48px;
+    max-width: 1280px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 400px;
-    gap: 48px;
-    align-items: center;
-    min-height: calc(100vh - 64px);
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+    gap: 32px 40px;
+    align-items: start;
   }
   .hero-tag {
     display: inline-block;
@@ -122,29 +121,33 @@ import Layout from '../layouts/Layout.astro';
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--orange);
-    margin-bottom: 20px;
+    margin-bottom: 14px;
   }
   .hero-title {
-    font-size: clamp(36px, 4.5vw, 52px);
+    font-size: clamp(32px, 4.2vw, 50px);
     font-weight: 900;
     line-height: 1.12;
     letter-spacing: -0.02em;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
     color: var(--text);
   }
+  /* Single orange accent — everything else is dark */
   .hero-title .orange { color: var(--orange); }
-  .hero-title .blue { color: var(--blue); }
-  .hero-title .underline-blue {
-    color: var(--blue);
+  /* Typographic emphasis via italic, no extra color */
+  .hero-title .italic-em { font-style: italic; color: var(--text); }
+  /* Orange underline, dark text — editorial accent */
+  .hero-title .underline-accent {
+    color: var(--text);
     text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 2px;
+    text-decoration-color: var(--orange);
+    text-underline-offset: 5px;
+    text-decoration-thickness: 3px;
   }
   .hero-sub {
     font-size: 17px;
     color: var(--muted);
-    max-width: 480px;
-    margin-bottom: 36px;
+    max-width: 560px;
+    margin-bottom: 28px;
     line-height: 1.7;
   }
   .hero-actions {
@@ -152,7 +155,7 @@ import Layout from '../layouts/Layout.astro';
     align-items: center;
     gap: 24px;
     flex-wrap: wrap;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
   .btn-primary {
     display: inline-flex;
@@ -180,11 +183,12 @@ import Layout from '../layouts/Layout.astro';
     width: 100%;
   }
 
-  /* Right: photo */
+  /* Right: photo — center in row vs text column without forcing full viewport height */
   .hero-photo-wrap {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
+    align-self: center;
   }
   .hero-photo-circle {
     width: 320px;
@@ -315,6 +319,10 @@ import Layout from '../layouts/Layout.astro';
     align-items: start;
     margin-top: 56px;
   }
+  /* Label shares .section-label (centered globally); left-align here to match headline */
+  .why-grid .section-label {
+    text-align: left;
+  }
   .why-headline {
     font-size: clamp(28px, 3vw, 38px);
     font-weight: 900;
@@ -415,6 +423,15 @@ import Layout from '../layouts/Layout.astro';
     transition: opacity 0.2s, filter 0.2s;
   }
   .cert-box img:hover { opacity: 1; filter: grayscale(0); }
+  /* cert-logo-4: file has heavy internal padding — scale so it matches neighbor logos */
+  .cert-box--padded-source {
+    width: 136px;
+    overflow: visible;
+  }
+  .cert-box--padded-source img {
+    transform: scale(1.72);
+    transform-origin: center center;
+  }
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -619,25 +636,25 @@ import Layout from '../layouts/Layout.astro';
     margin-bottom: 48px;
   }
 
-  /* ─── AUDIT FORM ─── */
+  /* ─── BOOKING CALENDAR ─── */
   .audit-section {
-    background: var(--cream-dark);
+    background: #fff;
     border-top: var(--border);
     border-bottom: var(--border);
-    padding: 96px 48px;
+    padding: 80px 48px;
   }
   .audit-inner {
-    max-width: 640px;
+    max-width: 900px;
     margin: 0 auto;
     text-align: center;
   }
   .audit-label {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--orange);
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
   .audit-title {
     font-size: clamp(28px, 3.5vw, 44px);
@@ -650,71 +667,26 @@ import Layout from '../layouts/Layout.astro';
   .audit-sub {
     font-size: 16px;
     color: var(--muted);
-    margin-bottom: 32px;
+    max-width: 560px;
+    margin: 0 auto 40px;
     line-height: 1.7;
   }
-  .audit-checklist {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 36px;
-    text-align: left;
-  }
-  .audit-checklist li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 14px;
-    color: var(--text);
-  }
-  .audit-checklist li::before {
-    content: '✓';
-    color: var(--orange);
-    font-weight: 700;
-    margin-top: 1px;
-    flex-shrink: 0;
-  }
-  .audit-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .audit-input {
+  .cal-embed-wrap {
     width: 100%;
-    padding: 14px 18px;
-    font-family: var(--font);
-    font-size: 15px;
-    font-weight: 500;
-    background: #fff;
+    height: 700px;
+    border-radius: 16px;
+    overflow: hidden;
     border: var(--border);
-    border-radius: var(--radius);
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.07);
+    background: #fff;
   }
-  .audit-input:focus {
-    border-color: var(--orange);
-    box-shadow: 0 0 0 3px rgba(231,74,26,0.1);
-  }
-  .audit-input::placeholder { color: #AAA; }
-  .btn-full {
+  #my-cal-inline-30min {
     width: 100%;
-    padding: 15px 28px;
-    font-family: var(--font);
-    font-size: 16px;
-    font-weight: 700;
-    background: var(--orange);
-    color: #fff;
-    border: none;
-    border-radius: 1000px;
-    cursor: pointer;
-    transition: transform 0.18s, box-shadow 0.18s;
-    box-shadow: 0 2px 12px rgba(231,74,26,0.3);
+    height: 100%;
+    overflow: scroll;
   }
-  .btn-full:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(231,74,26,0.35);
+  @media (max-width: 600px) {
+    .cal-embed-wrap { height: 800px; }
   }
 
   /* ─── FAQ ─── */
@@ -809,9 +781,8 @@ import Layout from '../layouts/Layout.astro';
     /* Hero */
     .hero {
       grid-template-columns: 1fr;
-      padding: 48px 24px 40px;
-      min-height: auto;
-      gap: 40px;
+      padding: 28px 24px 36px;
+      gap: 28px;
       text-align: center;
     }
     .hero-photo-wrap { order: -1; }
@@ -822,6 +793,7 @@ import Layout from '../layouts/Layout.astro';
 
     /* Why me headline centered */
     .why-headline { text-align: center; }
+    .why-grid .section-label { text-align: center; }
 
     /* Logo bar stat centered */
     .logo-bar { align-items: center; }
@@ -876,7 +848,7 @@ import Layout from '../layouts/Layout.astro';
     .nav-badge-text { display: none; }
 
     /* Hero */
-    .hero { padding: 36px 16px 32px; gap: 32px; }
+    .hero { padding: 24px 16px 28px; gap: 24px; }
     .hero-photo-circle { width: 175px; height: 175px; }
     .hero-sub { font-size: 15px; }
 
@@ -912,6 +884,12 @@ import Layout from '../layouts/Layout.astro';
     .skills-grid { grid-template-columns: 1fr; }
     .cert-strip { gap: 20px; }
     .cert-box { width: 90px; height: 36px; }
+    .cert-box--padded-source {
+      width: 100px;
+    }
+    .cert-box--padded-source img {
+      transform: scale(1.45);
+    }
 
     /* Services */
     .service-card { padding: 24px 20px 20px; }
@@ -948,7 +926,7 @@ import Layout from '../layouts/Layout.astro';
     <span class="hero-tag">The Data-driven guy</span>
     <h1 class="hero-title">
       I take care of your <span class="orange">Analytics and CRO</span>,<br>
-      to enable <span class="underline-blue">data-driven</span> decision-making and <span class="blue">fuel your growth</span>
+      to enable <span class="underline-accent">data-driven</span> decision-making and <span class="italic-em">fuel your growth</span>
     </h1>
     <p class="hero-sub">
       Robust analytics and CRO services, to help you bypass guesswork, by implementing analytics, analyzing it, and generating valuable insights to fast, based on your needs.
@@ -985,6 +963,11 @@ import Layout from '../layouts/Layout.astro';
       <div class="logo-wrap"><img src="/images/client-logo-4.png" alt="Client" /></div>
       <div class="logo-wrap"><img src="/images/client-logo-5.png" alt="Client" /></div>
       <div class="logo-wrap"><img src="/images/client-logo-6.png" alt="Client" /></div>
+      <div class="logo-wrap"><img src="/images/image 9.png" alt="Utiva" /></div>
+      <div class="logo-wrap"><img src="/images/image 7.png" alt="London Penny" /></div>
+      <div class="logo-wrap"><img src="/images/image 20.png" alt="Doman International" /></div>
+      <div class="logo-wrap"><img src="/images/image 12.png" alt="Park Seed" /></div>
+      <div class="logo-wrap"><img src="/images/image 3.png" alt="Paris Texas Apparel Co" /></div>
       <!-- duplicate for seamless loop -->
       <div class="logo-wrap"><img src="/images/client-logo-1.png" alt="Client" /></div>
       <div class="logo-wrap"><img src="/images/client-logo-2.png" alt="Client" /></div>
@@ -992,6 +975,11 @@ import Layout from '../layouts/Layout.astro';
       <div class="logo-wrap"><img src="/images/client-logo-4.png" alt="Client" /></div>
       <div class="logo-wrap"><img src="/images/client-logo-5.png" alt="Client" /></div>
       <div class="logo-wrap"><img src="/images/client-logo-6.png" alt="Client" /></div>
+      <div class="logo-wrap"><img src="/images/image 9.png" alt="Utiva" /></div>
+      <div class="logo-wrap"><img src="/images/image 7.png" alt="London Penny" /></div>
+      <div class="logo-wrap"><img src="/images/image 20.png" alt="Doman International" /></div>
+      <div class="logo-wrap"><img src="/images/image 12.png" alt="Park Seed" /></div>
+      <div class="logo-wrap"><img src="/images/image 3.png" alt="Paris Texas Apparel Co" /></div>
     </div>
   </div>
 </div>
@@ -1056,7 +1044,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="cert-box"><img src="/images/cert-logo-1.png" alt="CXL" /></div>
       <div class="cert-box"><img src="/images/cert-logo-2.png" alt="ProductLed" /></div>
       <div class="cert-box"><img src="/images/cert-logo-3.png" alt="Google Analytics" /></div>
-      <div class="cert-box"><img src="/images/cert-logo-4.png" alt="IntersectFM" /></div>
+      <div class="cert-box cert-box--padded-source"><img src="/images/cert-logo-4.png" alt="Semrush Academy" /></div>
       <div class="cert-box"><img src="/images/cert-logo-5.png" alt="HubSpot" /></div>
     </div>
     <div class="skills-grid">
@@ -1178,25 +1166,28 @@ import Layout from '../layouts/Layout.astro';
   <div class="senja-embed" data-id="fccad927-8689-4142-afd3-6549b0aa06fa" data-mode="shadow" data-lazyload="false" style="display:block;width:100%;"></div>
 </section>
 
-<!-- FREE AUDIT -->
+<!-- BOOK A CALL -->
 <section class="audit-section" id="audit">
   <div class="audit-inner">
-    <div class="audit-label">My special offer for you</div>
-    <h2 class="audit-title">Free Website audit<br><span style="color:var(--orange)">(worth $500)</span></h2>
-    <p class="audit-sub">Fill out the form below with the link to your website and I will do a complete audit covering these key areas:</p>
-    <ul class="audit-checklist">
-      <li>Audit of your current web and/or product analytics setup</li>
-      <li>Suggest the most important 10 low hanging fruits to improve your website conversion</li>
-      <li>Comprehensive analysis of your website's performance</li>
-      <li>A 15-minute personalized video summary highlighting key insights and tailored recommendations for your website</li>
-    </ul>
-    <form class="audit-form">
-      <input class="audit-input" type="url" placeholder="Your website URL" required />
-      <input class="audit-input" type="email" placeholder="Your email address" required />
-      <button type="submit" class="btn-full">Submit →</button>
-    </form>
+    <div class="audit-label">Let's talk</div>
+    <h2 class="audit-title">Book a <span style="color:var(--orange)">Discovery Call</span></h2>
+    <p class="audit-sub">Pick a time that works for you. We'll spend 30 minutes discussing your goals, challenges, and how I can help you grow with data.</p>
+    <div class="cal-embed-wrap">
+      <div id="my-cal-inline-30min"></div>
+    </div>
   </div>
 </section>
+
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", "30min", {origin:"https://app.cal.com"});
+  Cal.ns["30min"]("inline", {
+    elementOrSelector:"#my-cal-inline-30min",
+    config: {"layout":"week_view","useSlotsViewOnSmallScreen":"true"},
+    calLink: "hichem/30min",
+  });
+  Cal.ns["30min"]("ui", {"hideEventTypeDetails":false,"layout":"column_view","theme":"light"});
+</script>
 
 <!-- FAQ -->
 <section class="faq-section">
@@ -1249,7 +1240,7 @@ import Layout from '../layouts/Layout.astro';
   <ul class="footer-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#why">Why me?</a></li>
-    <li><a href="#audit">Free Audit</a></li>
+    <li><a href="#audit">Book a Call</a></li>
     <li><a href="mailto:behichemben@gmail.com">Contact</a></li>
   </ul>
   <div class="footer-copy">© 2025 Hichem Bennaceur. All rights reserved.</div>

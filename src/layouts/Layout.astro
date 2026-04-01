@@ -11,7 +11,7 @@ const {
   canonicalUrl = "https://hichembennaceur.com/",
 } = Astro.props;
 
-const ogImage = "https://hichembennaceur.com/images/hero.png";
+const ogImage = "https://hichembennaceur.com/images/og-social-preview.png";
 ---
 
 <!doctype html>
@@ -30,6 +30,8 @@ const ogImage = "https://hichembennaceur.com/images/hero.png";
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Hichem Bennaceur — Analytics & CRO consultant" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Hichem Bennaceur" />
 
@@ -38,6 +40,7 @@ const ogImage = "https://hichembennaceur.com/images/hero.png";
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Hichem Bennaceur — Analytics & CRO consultant" />
 
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
