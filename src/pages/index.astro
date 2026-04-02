@@ -105,6 +105,14 @@ import Layout from '../layouts/Layout.astro';
   }
 
   /* ─── HERO ─── */
+  .hero-section-wrap {
+    background:
+      radial-gradient(ellipse 55% 70% at 92% 5%, rgba(231,74,26,0.09), transparent 65%),
+      radial-gradient(ellipse 35% 40% at 5% 95%, rgba(23,72,139,0.05), transparent 60%),
+      var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
   .hero {
     padding: 32px 28px 48px;
     max-width: 1280px;
@@ -382,9 +390,32 @@ import Layout from '../layouts/Layout.astro';
     line-height: 1.6;
   }
 
+  /* ─── WHY ME WRAPPER ─── */
+  .why-section-wrap {
+    background: linear-gradient(160deg, #fff 0%, var(--cream) 50%, #eeeae0 100%);
+    border-top: var(--border);
+    border-bottom: var(--border);
+  }
+
+  /* ─── SERVICES WRAPPER ─── */
+  .services-section-wrap {
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 100%, rgba(231,74,26,0.04), transparent 70%),
+      #fff;
+    border-top: var(--border);
+    border-bottom: var(--border);
+  }
+
   /* ─── SKILLS ─── */
   .skills-section {
-    background: var(--cream-dark);
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 0%, rgba(23,72,139,0.04), transparent 60%),
+      var(--cream-dark);
+    background-image:
+      radial-gradient(ellipse 70% 60% at 50% 0%, rgba(23,72,139,0.04), transparent 60%),
+      radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px),
+      linear-gradient(var(--cream-dark), var(--cream-dark));
+    background-size: auto, 28px 28px, auto;
     border-top: var(--border);
     border-bottom: var(--border);
     padding: 96px 48px;
@@ -528,9 +559,13 @@ import Layout from '../layouts/Layout.astro';
 
   /* ─── TAILORED SOLUTIONS ─── */
   .tailored-section {
-    background: var(--text);
+    background:
+      radial-gradient(ellipse 55% 60% at 95% 100%, rgba(231,74,26,0.18), transparent 65%),
+      radial-gradient(ellipse 40% 40% at 5% 10%, rgba(23,72,139,0.12), transparent 55%),
+      var(--text);
     color: #fff;
     padding: 96px 48px;
+    position: relative;
   }
   .tailored-inner {
     max-width: 1200px;
@@ -614,6 +649,11 @@ import Layout from '../layouts/Layout.astro';
   }
 
   /* ─── TESTIMONIALS ─── */
+  .testimonials-outer {
+    background: linear-gradient(180deg, var(--cream) 0%, #f0ece3 100%);
+    border-top: var(--border);
+    border-bottom: var(--border);
+  }
   .testimonials-section {
     padding: 96px 48px;
     max-width: 1200px;
@@ -902,6 +942,209 @@ import Layout from '../layouts/Layout.astro';
     .footer { padding: 28px 16px; }
     .footer-links { gap: 12px; }
   }
+
+  /* ─── SECTION BACKGROUNDS ─── */
+
+  /* Hero: warm radial glow from top-right */
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 80% 10%, rgba(231,74,26,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 20% 90%, rgba(23,72,139,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero > * { position: relative; z-index: 1; }
+
+  /* Why Me: subtle dot grid */
+  #why {
+    position: relative;
+    overflow: hidden;
+  }
+  #why::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, #d8d5cc 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  #why > * { position: relative; }
+
+  /* Skills: diagonal stripe texture */
+  .skills-section {
+    position: relative;
+    overflow: hidden;
+  }
+  .skills-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 20px,
+      rgba(0,0,0,0.018) 20px,
+      rgba(0,0,0,0.018) 21px
+    );
+    pointer-events: none;
+  }
+  .skills-inner { position: relative; }
+
+  /* Tailored (dark): subtle noise via repeating pattern */
+  .tailored-section {
+    position: relative;
+    overflow: hidden;
+  }
+  .tailored-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(ellipse 70% 50% at 100% 0%, rgba(231,74,26,0.12) 0%, transparent 60%),
+                      radial-gradient(ellipse 50% 60% at 0% 100%, rgba(23,72,139,0.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .tailored-inner { position: relative; }
+
+  /* Testimonials: warm gradient sweep */
+  .testimonials-section {
+    position: relative;
+    overflow: hidden;
+  }
+  .testimonials-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(231,74,26,0.03) 0%, transparent 50%, rgba(23,72,139,0.03) 100%);
+    pointer-events: none;
+  }
+  .testimonials-header { position: relative; }
+
+  /* FAQ: alternating warm band */
+  .faq-section {
+    position: relative;
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream-dark) 100%);
+  }
+
+  /* ─── ANIMATION SYSTEM ─── */
+
+  /* Base: fade + rise */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    will-change: opacity, transform;
+  }
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--delay, 0ms);
+  }
+
+  /* Slide from left */
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    will-change: opacity, transform;
+  }
+  .reveal-left.in-view {
+    opacity: 1;
+    transform: translateX(0);
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--delay, 0ms);
+  }
+
+  /* Slide from right */
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(48px);
+    will-change: opacity, transform;
+  }
+  .reveal-right.in-view {
+    opacity: 1;
+    transform: translateX(0);
+    transition:
+      opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--delay, 0ms);
+  }
+
+  /* Scale pop — for cards */
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.93) translateY(20px);
+    will-change: opacity, transform;
+  }
+  .reveal-scale.in-view {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition:
+      opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+      transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: var(--delay, 0ms);
+  }
+
+  /* Blur + fade — for headlines */
+  .reveal-blur {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(6px);
+    will-change: opacity, transform, filter;
+  }
+  .reveal-blur.in-view {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+    transition:
+      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.6s ease;
+    transition-delay: var(--delay, 0ms);
+  }
+
+  /* Clip wipe — for labels/tags */
+  .reveal-clip {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+    will-change: clip-path, opacity;
+  }
+  .reveal-clip.in-view {
+    clip-path: inset(0 0% 0 0);
+    opacity: 1;
+    transition:
+      clip-path 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.3s ease;
+    transition-delay: var(--delay, 0ms);
+  }
+
+  /* Hero photo: scale-in from right */
+  .reveal-photo {
+    opacity: 0;
+    transform: translateX(32px) scale(0.96);
+    will-change: opacity, transform;
+  }
+  .reveal-photo.in-view {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    transition:
+      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--delay, 100ms);
+  }
+
+  /* Counter number — just needs in-view trigger */
+  .count-up { font-variant-numeric: tabular-nums; }
 </style>
 
 <!-- NAV -->
@@ -921,35 +1164,37 @@ import Layout from '../layouts/Layout.astro';
 </nav>
 
 <!-- HERO -->
+<div class="hero-section-wrap">
 <section class="hero">
   <div>
-    <span class="hero-tag">The Data-driven guy</span>
-    <h1 class="hero-title">
+    <span class="hero-tag reveal-clip" style="--delay:0ms">The Data-driven guy</span>
+    <h1 class="hero-title reveal-blur" style="--delay:120ms">
       I take care of your <span class="orange">Analytics and CRO</span>,<br>
       to enable <span class="underline-accent">data-driven</span> decision-making and <span class="italic-em">fuel your growth</span>
     </h1>
-    <p class="hero-sub">
+    <p class="hero-sub reveal" style="--delay:260ms">
       Robust analytics and CRO services, to help you bypass guesswork, by implementing analytics, analyzing it, and generating valuable insights to fast, based on your needs.
     </p>
-    <div class="hero-actions">
+    <div class="hero-actions reveal" style="--delay:360ms">
       <a href="#audit" class="btn-primary">Book a discovery call →</a>
     </div>
-    <div class="hero-senja">
+    <div class="hero-senja reveal" style="--delay:460ms">
       <script src="https://widget.senja.io/widget/7ef03a01-ff35-4f1b-a346-1fdfa296feee/platform.js" type="text/javascript" async></script>
       <div class="senja-embed" data-id="7ef03a01-ff35-4f1b-a346-1fdfa296feee" data-mode="shadow" data-lazyload="false" style="display:block;width:100%;"></div>
     </div>
   </div>
-  <div class="hero-photo-wrap">
+  <div class="hero-photo-wrap reveal-photo">
     <div class="hero-photo-circle">
       <img src="/images/hero.png" alt="Hichem Bennaceur" class="hero-photo" />
     </div>
   </div>
 </section>
+</div>
 
 <!-- LOGO BAR -->
 <div class="logo-bar">
   <div class="logo-bar-stat">
-    <div class="stat-num">26+</div>
+    <div class="stat-num count-up" data-target="26">0+</div>
     <div class="stars-row">
       <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
     </div>
@@ -985,43 +1230,44 @@ import Layout from '../layouts/Layout.astro';
 </div>
 
 <!-- WHY ME -->
+<div class="why-section-wrap">
 <section class="section" id="why">
   <hr class="section-divider" style="margin-bottom:56px" />
   <div class="why-grid">
-    <div>
+    <div class="reveal-left">
       <div class="section-label">Why work with me</div>
       <h2 class="why-headline">Analytics &amp; CRO consultant <em>with superpowers.</em></h2>
     </div>
     <div class="why-items">
-      <div class="why-item">
+      <div class="why-item reveal-right" style="--delay:0ms">
         <div class="why-item-num">1</div>
         <div>
           <div class="why-item-title">Certified from top-notch companies in various fields</div>
           <div class="why-item-body">CXL Certified Optimizer, Product-led certified, Google Tag Manager and product analytics certified from CXL.</div>
         </div>
       </div>
-      <div class="why-item">
+      <div class="why-item reveal-right" style="--delay:80ms">
         <div class="why-item-num">2</div>
         <div>
           <div class="why-item-title">Clients from the 4 continents</div>
           <div class="why-item-body">I worked with companies from USA, UK, Malaysia, France and Algeria.</div>
         </div>
       </div>
-      <div class="why-item">
+      <div class="why-item reveal-right" style="--delay:160ms">
         <div class="why-item-num">3</div>
         <div>
           <div class="why-item-title">A marketer with deep technical knowledge</div>
           <div class="why-item-body">Software engineer turned marketer — technical challenges are never a blocker for me.</div>
         </div>
       </div>
-      <div class="why-item">
+      <div class="why-item reveal-right" style="--delay:240ms">
         <div class="why-item-num">4</div>
         <div>
           <div class="why-item-title">Proven track-record on CRO &amp; analytics</div>
           <div class="why-item-body">SaaS, e-commerce, agencies — helped them all in analytics and CRO from A to Z.</div>
         </div>
       </div>
-      <div class="why-item">
+      <div class="why-item reveal-right" style="--delay:320ms">
         <div class="why-item-num">5</div>
         <div>
           <div class="why-item-title">Master of remote working and async communication</div>
@@ -1032,82 +1278,59 @@ import Layout from '../layouts/Layout.astro';
   </div>
 </section>
 
+</section>
+</div>
+
 <!-- SKILLS -->
 <section class="skills-section">
   <div class="skills-inner">
-    <div class="skills-header">
+    <div class="skills-header reveal-blur">
       <div class="section-label">Skills & Expertise</div>
       <h2 class="section-title">Experience-Forged Skills and Certifications,<br><span class="highlight">Tailored for Your Success</span></h2>
       <p style="font-size:14px;color:var(--muted);margin-top:12px;">Certified from Top Companies</p>
     </div>
     <div class="cert-strip">
-      <div class="cert-box"><img src="/images/cert-logo-1.png" alt="CXL" /></div>
-      <div class="cert-box"><img src="/images/cert-logo-2.png" alt="ProductLed" /></div>
-      <div class="cert-box"><img src="/images/cert-logo-3.png" alt="Google Analytics" /></div>
-      <div class="cert-box cert-box--padded-source"><img src="/images/cert-logo-4.png" alt="Semrush Academy" /></div>
-      <div class="cert-box"><img src="/images/cert-logo-5.png" alt="HubSpot" /></div>
+      <div class="cert-box reveal-scale" style="--delay:0ms"><img src="/images/cert-logo-1.png" alt="CXL" /></div>
+      <div class="cert-box reveal-scale" style="--delay:60ms"><img src="/images/cert-logo-2.png" alt="ProductLed" /></div>
+      <div class="cert-box reveal-scale" style="--delay:120ms"><img src="/images/cert-logo-3.png" alt="Google Analytics" /></div>
+      <div class="cert-box cert-box--padded-source reveal-scale" style="--delay:180ms"><img src="/images/cert-logo-4.png" alt="Semrush Academy" /></div>
+      <div class="cert-box reveal-scale" style="--delay:240ms"><img src="/images/cert-logo-5.png" alt="HubSpot" /></div>
     </div>
     <div class="skills-grid">
-      <div class="skill-tile">
-        <span class="skill-name">CRO</span>
-        <div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-      </div>
-      <div class="skill-tile">
-        <span class="skill-name">Web Analytics</span>
-        <div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-      </div>
-      <div class="skill-tile">
-        <span class="skill-name">Technical SEO</span>
-        <div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-      </div>
-      <div class="skill-tile">
-        <span class="skill-name">Product Analytics</span>
-        <div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="empty">★</span></div>
-      </div>
-      <div class="skill-tile">
-        <span class="skill-name">Technical marketing</span>
-        <div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="empty">★</span></div>
-      </div>
-      <div class="skill-tile">
-        <span class="skill-name">User experience (UX)</span>
-        <div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="empty">★</span></div>
-      </div>
-      <div class="skill-tile">
-        <span class="skill-name">Go-to-market strategy</span>
-        <div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="empty">★</span></div>
-      </div>
-      <div class="skill-tile">
-        <span class="skill-name">Marketing automation</span>
-        <div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="empty">★</span></div>
-      </div>
-      <div class="skill-tile">
-        <span class="skill-name">Messaging &amp; Positioning</span>
-        <div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="empty">★</span></div>
-      </div>
+      <div class="skill-tile reveal-scale" style="--delay:0ms"><span class="skill-name">CRO</span><div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></div>
+      <div class="skill-tile reveal-scale" style="--delay:50ms"><span class="skill-name">Web Analytics</span><div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></div>
+      <div class="skill-tile reveal-scale" style="--delay:100ms"><span class="skill-name">Technical SEO</span><div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></div>
+      <div class="skill-tile reveal-scale" style="--delay:150ms"><span class="skill-name">Product Analytics</span><div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="empty">★</span></div></div>
+      <div class="skill-tile reveal-scale" style="--delay:200ms"><span class="skill-name">Technical marketing</span><div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="empty">★</span></div></div>
+      <div class="skill-tile reveal-scale" style="--delay:250ms"><span class="skill-name">User experience (UX)</span><div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="empty">★</span></div></div>
+      <div class="skill-tile reveal-scale" style="--delay:300ms"><span class="skill-name">Go-to-market strategy</span><div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="empty">★</span></div></div>
+      <div class="skill-tile reveal-scale" style="--delay:350ms"><span class="skill-name">Marketing automation</span><div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="empty">★</span></div></div>
+      <div class="skill-tile reveal-scale" style="--delay:400ms"><span class="skill-name">Messaging &amp; Positioning</span><div class="skill-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="empty">★</span></div></div>
     </div>
   </div>
 </section>
 
 <!-- SERVICES -->
+<div class="services-section-wrap">
 <section class="section" id="services">
-  <div class="section-header-centered">
+  <div class="section-header-centered reveal-blur">
     <div class="section-label">What I do</div>
     <h2 class="section-title">Services I provide with <span class="highlight">full mastery</span></h2>
   </div>
   <div class="services-grid">
-    <div class="service-card">
+    <div class="service-card reveal-scale" style="--delay:0ms">
       <h3 class="service-title">Conversion Rate Optimization</h3>
       <p class="service-body">Transform your website into a revenue-generating machine. I dive deep into user behavior, applying data-driven insights and creative strategies to skyrocket your conversion rates. It's not just optimization; it's your secret to unlocking untapped potential.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card reveal-scale" style="--delay:80ms">
       <h3 class="service-title">Web Analytics</h3>
       <p class="service-body">Get ready to demystify your digital landscape with me. I don't just track data; I tell your story through numbers. With a fine-tuned balance of art and science, our analytics reveal pathways to success, helping you make informed decisions and stay ahead of the competition.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card reveal-scale" style="--delay:160ms">
       <h3 class="service-title">Product Analytics</h3>
       <p class="service-body">I will help you enhance the user experience by helping product teams understand behavioral data and analyzing your user journeys, the right way. By tracking user interactions and engagement, I reveal which features are most popular and potential bottlenecks in the user experience.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card reveal-scale" style="--delay:240ms">
       <h3 class="service-title">Landing Page Optimization</h3>
       <p class="service-body">I offer a comprehensive breakdown of your home page to identify and address issues related to copy, messaging & positioning, UX, and clarity. By leveraging my expertise, I can help you effectively increase your conversion rate and ensure that your website drives meaningful results.</p>
       <a href="#" class="service-link">See Use cases →</a>
@@ -1115,15 +1338,18 @@ import Layout from '../layouts/Layout.astro';
   </div>
 </section>
 
+</section>
+</div>
+
 <!-- TAILORED SOLUTIONS -->
 <section class="tailored-section">
   <div class="tailored-inner">
-    <div class="tailored-header">
+    <div class="tailored-header reveal-blur">
       <h2 class="tailored-title">Tailored Solutions for Your Business</h2>
       <p class="tailored-sub">As a consultant, I offer tailored solutions for early-stage SaaS, E-commerce, and Agencies. Each business type benefits from specialized expertise to drive growth and maximize potential.</p>
     </div>
     <div class="tailored-grid">
-      <div class="tailored-card">
+      <div class="tailored-card reveal-scale" style="--delay:0ms">
         <span class="tailored-tag agencies">For Agencies</span>
         <h3 class="tailored-card-title">Your perfect CRO/Analytics consultant to get analytics projects done</h3>
         <p class="tailored-card-body">Working with me allows your agency to deliver analytics projects done for less than the cost of an agency. Seamless integration with your team.</p>
@@ -1133,7 +1359,7 @@ import Layout from '../layouts/Layout.astro';
           <li>Comprehensive collaboration</li>
         </ul>
       </div>
-      <div class="tailored-card">
+      <div class="tailored-card reveal-scale" style="--delay:100ms">
         <span class="tailored-tag ecommerce">For E-commerce</span>
         <h3 class="tailored-card-title">Maximize your ROI, through data.</h3>
         <p class="tailored-card-body">I will help you build a multi-touch approach based around sales and customer retention, data-driven simulations for increased conversion rate, to maximize ROI on marketing efforts.</p>
@@ -1143,7 +1369,7 @@ import Layout from '../layouts/Layout.astro';
           <li>Better data accuracy</li>
         </ul>
       </div>
-      <div class="tailored-card">
+      <div class="tailored-card reveal-scale" style="--delay:200ms">
         <span class="tailored-tag saas">For Early stage SaaS</span>
         <h3 class="tailored-card-title">Deeply understand your user journey</h3>
         <p class="tailored-card-body">I provide customized strategies for you to accelerate your acquisition, optimized conversion funnels for rapid growth, and actionable insights to enhance product performance.</p>
@@ -1157,14 +1383,16 @@ import Layout from '../layouts/Layout.astro';
 </section>
 
 <!-- TESTIMONIALS -->
+<div class="testimonials-outer">
 <section class="testimonials-section">
-  <div class="testimonials-header">
+  <div class="testimonials-header reveal-blur">
     <h2 class="testimonials-title">Don't just take our word for it. Take theirs</h2>
     <p class="testimonials-sub">★★★★★ &nbsp; Rated 4.8/5 from 26+ Clients</p>
   </div>
   <script src="https://widget.senja.io/widget/fccad927-8689-4142-afd3-6549b0aa06fa/platform.js" type="text/javascript" async></script>
   <div class="senja-embed" data-id="fccad927-8689-4142-afd3-6549b0aa06fa" data-mode="shadow" data-lazyload="false" style="display:block;width:100%;"></div>
 </section>
+</div>
 
 <!-- BOOK A CALL -->
 <section class="audit-section" id="audit">
@@ -1245,5 +1473,68 @@ import Layout from '../layouts/Layout.astro';
   </ul>
   <div class="footer-copy">© 2025 Hichem Bennaceur. All rights reserved.</div>
 </footer>
+
+<script>
+  // ── Scroll reveal ──────────────────────────────────────────
+  const SELECTORS = [
+    '.reveal', '.reveal-left', '.reveal-right',
+    '.reveal-scale', '.reveal-blur', '.reveal-clip', '.reveal-photo'
+  ];
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.08, rootMargin: '0px 0px -32px 0px' }
+  );
+
+  document.querySelectorAll(SELECTORS.join(',')).forEach((el) => {
+    observer.observe(el);
+  });
+
+  // Hero: fire immediately on load with staggered delays
+  const heroEls = document.querySelectorAll(
+    '.hero .reveal, .hero .reveal-blur, .hero .reveal-clip, .hero-photo-wrap'
+  );
+  heroEls.forEach((el) => {
+    const delay = parseInt(el.style.getPropertyValue('--delay') || '0') || 0;
+    setTimeout(() => el.classList.add('in-view'), delay);
+  });
+
+  // ── Counter animation ──────────────────────────────────────
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const duration = 1400;
+    const start = performance.now();
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(eased * target);
+      el.textContent = current + '+';
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  const counterObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  document.querySelectorAll('.count-up').forEach((el) => counterObserver.observe(el));
+</script>
 
 </Layout>
