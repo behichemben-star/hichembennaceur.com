@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "hichembennaceur",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": ["/c", "npm run dev -- --port 4321"],
       "port": 4321
     }
   ]

@@ -1,0 +1,955 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="White-label Analytics & CRO for Agencies — Hichem Bennaceur"
+  description="Senior analytics and CRO execution for digital agencies. White-label, fixed pricing, delivered under your brand. Complex projects handled without bloating your headcount."
+  canonicalUrl="https://hichembennaceur.com/agencies"
+>
+
+<style>
+  @import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap');
+
+  :root {
+    --cream: #F9F8F2;
+    --cream-dark: #F2EDE3;
+    --orange: #E74A1A;
+    --blue: #17488B;
+    --text: #101010;
+    --muted: #666;
+    --border: 1px solid #E5E3DA;
+    --radius: 12px;
+    --font: 'Satoshi', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); background: var(--cream); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ─── SCROLL PROGRESS ─── */
+  .scroll-progress {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--orange) 0%, #ff6535 50%, #ff8855 100%);
+    box-shadow: 0 0 12px rgba(231,74,26,0.6);
+    z-index: 999; pointer-events: none;
+  }
+
+  /* ─── NAV ─── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(249,248,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: var(--border);
+    padding: 0 48px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .nav-logo { font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
+  .nav-logo:hover { color: var(--orange); }
+  .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 14px; color: var(--muted); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--orange); color: #fff; font-size: 13px; font-weight: 700;
+    padding: 9px 20px; border-radius: 1000px;
+    transition: opacity 0.2s, transform 0.2s; white-space: nowrap;
+  }
+  .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 88px 48px 72px;
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(231,74,26,0.07);
+    border: 1px solid rgba(231,74,26,0.18);
+    color: var(--orange); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 1000px; margin-bottom: 28px;
+  }
+  .hero-tag-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--orange);
+    animation: pulseDot 2s infinite;
+  }
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.65); }
+  }
+  .hero-title {
+    font-size: clamp(38px, 6vw, 72px);
+    font-weight: 900; letter-spacing: -0.035em; line-height: 1.04;
+    color: var(--text); margin-bottom: 24px;
+  }
+  .hero-title .orange { color: var(--orange); }
+  .hero-title .underline-accent {
+    text-decoration: underline;
+    text-decoration-color: var(--orange);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+  }
+  .hero-sub {
+    font-size: 18px; line-height: 1.72; color: var(--muted);
+    max-width: 680px; margin: 0 auto 40px;
+  }
+  .hero-actions {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; flex-wrap: wrap; margin-bottom: 32px;
+  }
+  .btn-primary {
+    background: var(--orange); color: #fff; font-weight: 700; font-size: 15px;
+    padding: 14px 28px; border-radius: 1000px;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: opacity 0.2s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+  .btn-primary::after {
+    content: ''; position: absolute; top: 0; left: -90%; width: 55%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+    transform: skewX(-20deg); pointer-events: none;
+  }
+  .btn-primary:hover::after { animation: shimmer 0.6s ease forwards; }
+  @keyframes shimmer { from { left: -90%; } to { left: 150%; } }
+  .btn-ghost {
+    font-size: 14px; color: var(--muted);
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--text); }
+  .trust-bar {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-size: 13px; color: var(--muted);
+  }
+  .trust-stars { color: #F59E0B; letter-spacing: 2px; font-size: 14px; }
+
+  /* ─── SECTION EYEBROW ─── */
+  .eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--orange); margin-bottom: 14px;
+  }
+
+  /* ─── PAIN SECTION ─── */
+  .pain-section {
+    background:
+      radial-gradient(ellipse 55% 60% at 95% 0%, rgba(231,74,26,0.16), transparent 60%),
+      radial-gradient(ellipse 40% 50% at 8% 100%, rgba(23,72,139,0.1), transparent 55%),
+      #101010;
+    color: #fff; padding: 96px 48px;
+  }
+  .pain-inner { max-width: 1160px; margin: 0 auto; }
+  .pain-title {
+    font-size: clamp(30px, 3.8vw, 48px); font-weight: 900;
+    letter-spacing: -0.03em; line-height: 1.1; color: #fff;
+    max-width: 760px; margin-bottom: 56px;
+  }
+  .pain-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; margin-bottom: 48px;
+  }
+  .pain-item {
+    padding: 32px 28px;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.03);
+    transition: background 0.25s;
+  }
+  .pain-item:hover { background: rgba(255,255,255,0.07); }
+  .pain-item:nth-child(1) { border-radius: 12px 0 0 0; }
+  .pain-item:nth-child(2) { border-radius: 0; }
+  .pain-item:nth-child(3) { border-radius: 0 12px 0 0; }
+  .pain-item:nth-child(4) { border-radius: 0 0 0 12px; }
+  .pain-item:nth-child(5) { border-radius: 0; }
+  .pain-item:nth-child(6) { border-radius: 0 0 12px 0; }
+  .pain-num {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    color: rgba(231,74,26,0.65); margin-bottom: 12px;
+  }
+  .pain-item-title {
+    font-size: 16px; font-weight: 800; color: #fff;
+    margin-bottom: 10px; line-height: 1.35;
+  }
+  .pain-item-body {
+    font-size: 13.5px; color: rgba(255,255,255,0.48); line-height: 1.72;
+  }
+  .pain-callout {
+    background: rgba(231,74,26,0.09);
+    border: 1px solid rgba(231,74,26,0.22);
+    border-radius: 12px; padding: 28px 32px;
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .pain-callout-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .pain-callout-text {
+    font-size: 15.5px; color: rgba(255,255,255,0.75); line-height: 1.7;
+  }
+  .pain-callout-text strong { color: #fff; }
+
+  /* ─── PROOF SECTION (VIGGET) ─── */
+  .proof-section {
+    background: var(--cream-dark); border-top: var(--border); border-bottom: var(--border);
+    padding: 88px 48px;
+  }
+  .proof-inner { max-width: 1000px; margin: 0 auto; }
+  .proof-header { text-align: center; margin-bottom: 52px; }
+  .proof-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; }
+  .proof-title {
+    font-size: clamp(26px, 3.2vw, 40px); font-weight: 900;
+    letter-spacing: -0.025em; color: var(--text); margin-bottom: 10px;
+  }
+  .proof-sub { font-size: 15px; color: var(--muted); max-width: 560px; margin: 0 auto; line-height: 1.68; }
+  .proof-card {
+    background: var(--cream);
+    border: var(--border);
+    border-radius: 16px;
+    padding: 44px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .proof-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--orange), #ff6535);
+  }
+  .proof-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(231,74,26,0.08); border: 1px solid rgba(231,74,26,0.18);
+    border-radius: 1000px; padding: 5px 14px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--orange); margin-bottom: 20px;
+  }
+  .proof-card-title {
+    font-size: clamp(20px, 2.4vw, 28px); font-weight: 900;
+    letter-spacing: -0.02em; line-height: 1.2; color: var(--text); margin-bottom: 16px;
+  }
+  .proof-card-body {
+    font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 24px;
+  }
+  .proof-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .proof-list li {
+    font-size: 14px; color: var(--text);
+    display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+  }
+  .proof-list li::before { content: '✓'; color: var(--orange); font-weight: 700; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+  .proof-quote {
+    background: #101010;
+    border-radius: 14px;
+    padding: 36px 36px;
+    position: relative;
+  }
+  .proof-quote-mark {
+    font-size: 64px; line-height: 0.6; color: rgba(231,74,26,0.35);
+    font-family: Georgia, serif; margin-bottom: 20px; display: block;
+  }
+  .proof-quote-text {
+    font-size: 16px; color: rgba(255,255,255,0.82); line-height: 1.7;
+    font-style: italic; margin-bottom: 24px;
+  }
+  .proof-quote-author {
+    font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.5);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .proof-quote-author span { color: var(--orange); }
+
+  /* ─── VALUE PROPS ─── */
+  .value-section {
+    background: var(--cream); border-top: var(--border);
+    padding: 88px 48px;
+  }
+  .value-inner { max-width: 1160px; margin: 0 auto; }
+  .value-header { text-align: center; margin-bottom: 56px; }
+  .value-title {
+    font-size: clamp(26px, 3.2vw, 40px); font-weight: 900;
+    letter-spacing: -0.025em; color: var(--text); margin-bottom: 10px;
+  }
+  .value-sub { font-size: 15px; color: var(--muted); max-width: 480px; margin: 0 auto; }
+  .value-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .value-card {
+    background: var(--cream); border: var(--border); border-radius: var(--radius);
+    padding: 32px 28px; position: relative; overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .value-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px; background: var(--orange);
+  }
+  .value-card-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--orange); margin-bottom: 10px;
+  }
+  .value-card-title {
+    font-size: clamp(20px, 2.5vw, 28px); font-weight: 900;
+    color: var(--text); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 8px;
+  }
+  .value-card-body { font-size: 13px; color: var(--muted); line-height: 1.68; }
+
+  /* ─── SOLUTION SECTION ─── */
+  .solution-section {
+    background:
+      radial-gradient(ellipse 45% 65% at 3% 50%, rgba(231,74,26,0.11), transparent 55%),
+      radial-gradient(ellipse 50% 50% at 97% 10%, rgba(23,72,139,0.08), transparent 55%),
+      #101010;
+    color: #fff; padding: 96px 48px;
+  }
+  .solution-inner { max-width: 1160px; margin: 0 auto; }
+  .solution-header { margin-bottom: 52px; }
+  .solution-title {
+    font-size: clamp(28px, 3.5vw, 46px); font-weight: 900;
+    letter-spacing: -0.03em; line-height: 1.1; color: #fff;
+    max-width: 620px; margin-bottom: 14px;
+  }
+  .solution-sub { font-size: 16px; color: rgba(255,255,255,0.48); max-width: 520px; line-height: 1.65; }
+  .solution-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  }
+  .solution-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: var(--radius); padding: 32px;
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .solution-card:hover { background: rgba(255,255,255,0.09); border-color: rgba(231,74,26,0.28); }
+  .solution-icon {
+    width: 46px; height: 46px; border-radius: 10px;
+    background: rgba(231,74,26,0.14);
+    border: 1px solid rgba(231,74,26,0.22);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 20px;
+  }
+  .solution-icon svg { width: 22px; height: 22px; stroke: var(--orange); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .pain-callout-icon svg { width: 26px; height: 26px; stroke: rgba(231,74,26,0.85); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+  .solution-card-title {
+    font-size: 18px; font-weight: 800; color: #fff;
+    margin-bottom: 10px; line-height: 1.3;
+  }
+  .solution-card-body {
+    font-size: 14px; color: rgba(255,255,255,0.48); line-height: 1.72; margin-bottom: 24px;
+  }
+  .deliverables {
+    list-style: none; display: flex; flex-direction: column; gap: 9px;
+    border-top: 1px solid rgba(255,255,255,0.07); padding-top: 20px;
+  }
+  .deliverables li {
+    font-size: 13px; color: rgba(255,255,255,0.62);
+    display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+  }
+  .deliverables li::before { content: '→'; color: var(--orange); font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+
+  /* ─── PROCESS ─── */
+  .process-section {
+    background: var(--cream); border-top: var(--border); padding: 96px 48px;
+  }
+  .process-inner { max-width: 1160px; margin: 0 auto; }
+  .process-header { text-align: center; margin-bottom: 64px; }
+  .process-title {
+    font-size: clamp(26px, 3.2vw, 42px); font-weight: 900;
+    letter-spacing: -0.025em; color: var(--text); margin-bottom: 12px;
+  }
+  .process-sub { font-size: 15px; color: var(--muted); }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+    position: relative;
+  }
+  .process-connector {
+    position: absolute; top: 35px;
+    left: calc(33.33% + 4px); right: calc(33.33% + 4px); height: 2px;
+    background: linear-gradient(90deg, var(--orange) 0%, rgba(231,74,26,0.15) 100%);
+    pointer-events: none;
+  }
+  .process-step { text-align: center; }
+  .step-num {
+    width: 70px; height: 70px; border-radius: 50%;
+    background: var(--orange); color: #fff;
+    font-size: 22px; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; position: relative; z-index: 1;
+    box-shadow: 0 6px 24px rgba(231,74,26,0.35);
+  }
+  .step-period {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--orange); margin-bottom: 8px;
+  }
+  .step-title {
+    font-size: 18px; font-weight: 800; color: var(--text);
+    letter-spacing: -0.01em; margin-bottom: 10px;
+  }
+  .step-body { font-size: 14px; color: var(--muted); line-height: 1.72; }
+
+  /* ─── VS TABLE ─── */
+  .vs-section {
+    background: var(--cream-dark); border-top: var(--border); border-bottom: var(--border);
+    padding: 88px 48px;
+  }
+  .vs-inner { max-width: 960px; margin: 0 auto; }
+  .vs-header { text-align: center; margin-bottom: 48px; }
+  .vs-title {
+    font-size: clamp(24px, 3vw, 38px); font-weight: 900;
+    letter-spacing: -0.025em; color: var(--text); margin-bottom: 10px;
+  }
+  .vs-sub { font-size: 15px; color: var(--muted); }
+  .vs-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    border: var(--border); border-radius: 14px; overflow: hidden;
+  }
+  .vs-table th {
+    padding: 14px 22px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase; text-align: left;
+  }
+  .vs-table th:first-child { background: rgba(0,0,0,0.04); color: var(--muted); border-right: var(--border); width: 26%; }
+  .vs-table th.col-bad { background: rgba(0,0,0,0.04); color: var(--muted); border-right: var(--border); }
+  .vs-table th.col-good { background: rgba(231,74,26,0.06); color: var(--orange); }
+  .vs-table td {
+    padding: 15px 22px; font-size: 13.5px;
+    border-top: var(--border); line-height: 1.5; vertical-align: middle;
+  }
+  .vs-table td:first-child {
+    font-weight: 600; background: rgba(0,0,0,0.02);
+    border-right: var(--border); color: var(--text);
+  }
+  .vs-table td.bad { color: var(--muted); border-right: var(--border); }
+  .vs-table td.good { color: var(--text); font-weight: 500; }
+  .chk { color: var(--orange); font-weight: 700; margin-right: 5px; }
+  .crs { color: #ccc; margin-right: 5px; }
+
+  /* ─── TESTIMONIALS ─── */
+  .testi-section {
+    padding: 88px 48px; background: var(--cream); border-top: var(--border);
+  }
+  .testi-inner { max-width: 1160px; margin: 0 auto; }
+  .testi-header { text-align: center; margin-bottom: 48px; }
+  .testi-title {
+    font-size: clamp(24px, 3vw, 36px); font-weight: 900;
+    letter-spacing: -0.025em; color: var(--text); margin-bottom: 8px;
+  }
+  .testi-sub { font-size: 14px; color: var(--muted); }
+
+  /* ─── CTA SECTION ─── */
+  .cta-section {
+    background:
+      radial-gradient(ellipse 55% 65% at 95% 100%, rgba(231,74,26,0.18), transparent 60%),
+      radial-gradient(ellipse 45% 45% at 5% 10%, rgba(23,72,139,0.12), transparent 55%),
+      #101010;
+    color: #fff; padding: 100px 48px;
+    text-align: center;
+  }
+  .cta-inner { max-width: 720px; margin: 0 auto; }
+  .cta-title {
+    font-size: clamp(34px, 5vw, 62px); font-weight: 900;
+    letter-spacing: -0.035em; line-height: 1.06; color: #fff; margin-bottom: 20px;
+  }
+  .cta-sub {
+    font-size: 17px; color: rgba(255,255,255,0.52);
+    max-width: 520px; margin: 0 auto 40px; line-height: 1.72;
+  }
+  .cta-btn {
+    background: var(--orange); color: #fff; font-weight: 700; font-size: 16px;
+    padding: 16px 36px; border-radius: 1000px;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: opacity 0.2s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .cta-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+  .cta-btn::after {
+    content: ''; position: absolute; top: 0; left: -90%; width: 55%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+    transform: skewX(-20deg); pointer-events: none;
+  }
+  .cta-btn:hover::after { animation: shimmer 0.6s ease forwards; }
+  .cta-note { margin-top: 16px; font-size: 13px; color: rgba(255,255,255,0.3); }
+  .cal-embed { margin-top: 52px; }
+  #agency-cal { min-height: 500px; }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: #0a0a0a; border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 28px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
+  }
+  .footer-logo { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.5); }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer-link { font-size: 13px; color: rgba(255,255,255,0.3); transition: color 0.2s; }
+  .footer-link:hover { color: var(--orange); }
+
+  /* ─── REVEAL ANIMATIONS ─── */
+  .reveal {
+    opacity: 0; transform: translateY(52px); will-change: opacity, transform;
+    transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--delay, 0ms);
+  }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+  .reveal-scale {
+    opacity: 0; transform: scale(0.8) translateY(36px); will-change: opacity, transform;
+    transition: opacity 0.72s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.72s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: var(--delay, 0ms);
+  }
+  .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
+  .reveal-blur {
+    opacity: 0; transform: translateY(36px); filter: blur(16px); will-change: opacity, transform, filter;
+    transition: opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1), transform 1.15s cubic-bezier(0.16, 1, 0.3, 1), filter 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--delay, 0ms);
+  }
+  .reveal-blur.in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .pain-grid { grid-template-columns: 1fr 1fr; }
+    .solution-grid { grid-template-columns: 1fr; }
+    .value-grid { grid-template-columns: 1fr; gap: 16px; }
+    .process-steps { grid-template-columns: 1fr; }
+    .process-connector { display: none; }
+    .proof-card { grid-template-columns: 1fr; }
+    .pain-item:nth-child(n) { border-radius: 0; }
+    .pain-item:first-child { border-radius: 12px 12px 0 0; }
+    .pain-item:last-child { border-radius: 0 0 12px 12px; }
+  }
+  @media (max-width: 768px) {
+    .nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 56px 24px 48px; }
+    .pain-section, .solution-section, .cta-section { padding: 72px 24px; }
+    .proof-section, .value-section, .process-section, .vs-section, .testi-section { padding: 64px 24px; }
+    .pain-grid { grid-template-columns: 1fr; }
+    .proof-card { padding: 32px 28px; }
+    .footer { padding: 24px; flex-direction: column; align-items: flex-start; }
+    .hero-title { font-size: clamp(34px, 9vw, 52px); }
+  }
+</style>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="/" class="nav-logo">Hichem Bennaceur</a>
+  <ul class="nav-links">
+    <li><a href="#what-i-do">What I do</a></li>
+    <li><a href="#how-it-works">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Talk to me about a project →</a>
+</nav>
+
+<!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+<section class="hero">
+  <span class="hero-tag">
+    <span class="hero-tag-dot"></span>
+    Analytics & CRO for Digital Agencies
+  </span>
+  <h1 class="hero-title reveal-blur" style="--delay:60ms">
+    Your agency takes on the project.<br>
+    <span class="underline-accent">I</span> <span class="orange">deliver</span> it.
+  </h1>
+  <p class="hero-sub reveal" style="--delay:180ms">
+    White-label analytics and CRO execution — senior-level technical work, fixed rates,
+    delivered under your brand. You handle the client relationship. I handle the hard part.
+  </p>
+  <div class="hero-actions reveal" style="--delay:280ms">
+    <a href="#contact" class="btn-primary">Talk to me about a project →</a>
+    <a href="#what-i-do" class="btn-ghost">See how it works ↓</a>
+  </div>
+  <div class="trust-bar reveal" style="--delay:380ms">
+    <span class="trust-stars">★★★★★</span>
+    <span>Trusted by digital agencies across Europe & North America</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ PAIN ═══════════════════════════════════════ -->
+<section class="pain-section" id="what-i-do">
+  <div class="pain-inner">
+    <p class="eyebrow reveal" style="--delay:0ms">The project on your plate right now</p>
+    <h2 class="pain-title reveal-blur" style="--delay:80ms">
+      Every agency hits a ceiling on the analytics complexity it can deliver in-house.
+    </h2>
+
+    <div class="pain-grid">
+      <div class="pain-item reveal-scale" style="--delay:0ms">
+        <div class="pain-num">01</div>
+        <h3 class="pain-item-title">Client needs a full GA4 rebuild. Your team knows the basics.</h3>
+        <p class="pain-item-body">Server-side events, custom dimensions, a data layer rebuild nobody's touched before. Your analysts are capable — but this project needs someone who's done it 20+ times, not someone figuring it out live on a client account.</p>
+      </div>
+      <div class="pain-item reveal-scale" style="--delay:80ms">
+        <div class="pain-num">02</div>
+        <h3 class="pain-item-title">Meta CAPI + server-side GTM is in scope. Nobody's done it end-to-end.</h3>
+        <p class="pain-item-body">Promising it was easy. Delivering it without a specialist who has real implementation experience is a different story entirely. Deadlines slip. Client confidence erodes. The project that was supposed to be easy becomes the one that keeps you up at night.</p>
+      </div>
+      <div class="pain-item reveal-scale" style="--delay:160ms">
+        <div class="pain-num">03</div>
+        <h3 class="pain-item-title">CRO audit for a 200-page e-comm client. No one knows where to start.</h3>
+        <p class="pain-item-body">Systematic behavioral analysis, funnel prioritization, and a test roadmap that actually moves revenue — it requires pattern recognition you only develop from doing this across dozens of clients. A junior analyst running heatmaps doesn't cut it.</p>
+      </div>
+      <div class="pain-item reveal-scale" style="--delay:240ms">
+        <div class="pain-num">04</div>
+        <h3 class="pain-item-title">The project pays €4K. A senior hire costs €7K/month.</h3>
+        <p class="pain-item-body">A full-time senior analytics specialist only makes sense at 100% utilization. For a 2–3 month engagement, the math never works. You either underdeliver, overpay, or find a consultant who knows the work as well as a full-timer does.</p>
+      </div>
+      <div class="pain-item reveal-scale" style="--delay:320ms">
+        <div class="pain-num">05</div>
+        <h3 class="pain-item-title">You need the work done. You don't need your client to know you outsourced it.</h3>
+        <p class="pain-item-body">White-label is a legitimate business model. Your client relationship is yours. I show up as part of your team, communicate in your formats, deliver in your voice, and disappear from the credits. Clean, professional, and invisible.</p>
+      </div>
+      <div class="pain-item reveal-scale" style="--delay:400ms">
+        <div class="pain-num">06</div>
+        <h3 class="pain-item-title">The analytics project keeps slipping while you juggle six other clients.</h3>
+        <p class="pain-item-body">It's not that your team doesn't care. Complex analytics work competes for attention with everything else — and it's always the first thing to slip. The client notices before you do.</p>
+      </div>
+    </div>
+
+    <div class="pain-callout reveal" style="--delay:0ms">
+      <div class="pain-callout-icon"><i data-lucide="target"></i></div>
+      <p class="pain-callout-text">
+        <strong>Every growing agency reaches this point.</strong>
+        The clients are getting more sophisticated. The projects are getting more technical.
+        The options are: say no, hire a full-time specialist for €7K/month, or find someone who
+        works like a senior team member without the overhead. That's exactly what this is.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ AGENCY PROOF (VIGGET) ═══════════════════════════════════════ -->
+<section class="proof-section">
+  <div class="proof-inner">
+    <div class="proof-header reveal-blur">
+      <p class="proof-eyebrow">Agency-first perspective</p>
+      <h2 class="proof-title">I know how agencies work — because I've worked inside one.</h2>
+      <p class="proof-sub">Not as a freelancer handed a brief. As someone embedded in the operations, dealing with the same client pressures, deadlines, and delivery standards you face every day.</p>
+    </div>
+    <div class="proof-card reveal-scale" style="--delay:0ms">
+      <div>
+        <div class="proof-badge">Featured Experience</div>
+        <h3 class="proof-card-title">Vigget — Digital Agency</h3>
+        <p class="proof-card-body">
+          At Vigget, I operated inside the agency's delivery structure — handling complex analytics and CRO projects for their clients that required a depth of technical execution the internal team didn't have. I understood the brief, worked within the agency's workflow, and delivered outputs that the agency team could own and present confidently.
+        </p>
+        <ul class="proof-list">
+          <li>Deep understanding of agency client communication norms</li>
+          <li>Worked within agency timelines, formats, and review cycles</li>
+          <li>Delivered client-ready outputs — not raw data dumps</li>
+          <li>Technical depth the internal team could learn from and build on</li>
+        </ul>
+      </div>
+      <div class="proof-quote">
+        <span class="proof-quote-mark">"</span>
+        <p class="proof-quote-text">
+          The difference between working with someone who understands the agency dynamic and someone who doesn't shows immediately. Hichem operates like a senior team member — he reads the brief, delivers on timeline, and the client never knows he isn't internal.
+        </p>
+        <p class="proof-quote-author">Agency Partner · <span>Vigget Digital</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ VALUE PROPS ═══════════════════════════════════════ -->
+<section class="value-section">
+  <div class="value-inner">
+    <div class="value-header reveal-blur">
+      <p class="eyebrow">The business case</p>
+      <h2 class="value-title">Built for agency economics</h2>
+      <p class="value-sub">Senior execution at contractor cost. You control the margin. I control the quality.</p>
+    </div>
+    <div class="value-grid">
+      <div class="value-card reveal-scale" style="--delay:0ms">
+        <div class="value-card-label">For your clients</div>
+        <div class="value-card-title">Senior-level execution</div>
+        <p class="value-card-body">50+ analytics and CRO projects delivered across SaaS, DTC, and agency clients. Your clients get work that reflects that depth — not a learning experience on their account.</p>
+      </div>
+      <div class="value-card reveal-scale" style="--delay:100ms">
+        <div class="value-card-label">For your margins</div>
+        <div class="value-card-title">Fixed pricing. You markup freely.</div>
+        <p class="value-card-body">You know the cost upfront. Quote your client whatever the project is worth. The margin logic is entirely yours — no variable billing, no surprise scope expansion from my side.</p>
+      </div>
+      <div class="value-card reveal-scale" style="--delay:200ms">
+        <div class="value-card-label">For your brand</div>
+        <div class="value-card-title">White-label by default</div>
+        <p class="value-card-body">No co-branding. No credit. No watermarks on the deliverables. Your agency name is on everything. I work invisibly, communicate in your formats, and your client relationship stays yours — completely.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SOLUTION ═══════════════════════════════════════ -->
+<section class="solution-section">
+  <div class="solution-inner">
+    <div class="solution-header reveal-blur">
+      <p class="eyebrow">What I do for agencies</p>
+      <h2 class="solution-title">The hard projects your team can't own — handled.</h2>
+      <p class="solution-sub">Analytics implementation, CRO execution, workforce upskilling, and embedded project support. Each engagement scoped clearly, delivered on time.</p>
+    </div>
+    <div class="solution-grid">
+
+      <div class="solution-card reveal-scale" style="--delay:0ms">
+        <div class="solution-icon"><i data-lucide="layers"></i></div>
+        <h3 class="solution-card-title">White-label Analytics Execution</h3>
+        <p class="solution-card-body">From complex GA4 builds to server-side tracking to data layer architecture — I handle the technical work your team doesn't have the depth to own. Every output is client-ready and white-labeled by default.</p>
+        <ul class="deliverables">
+          <li>GA4 implementation, migration, custom event taxonomy</li>
+          <li>Server-side GTM + Meta CAPI end-to-end setup</li>
+          <li>Custom data layer design, documentation, and handover</li>
+          <li>Attribution model build (multi-touch, data-driven)</li>
+          <li>Client-ready audit reports and implementation docs your team can present</li>
+        </ul>
+      </div>
+
+      <div class="solution-card reveal-scale" style="--delay:100ms">
+        <div class="solution-icon"><i data-lucide="flask-conical"></i></div>
+        <h3 class="solution-card-title">CRO Projects & Conversion Audits</h3>
+        <p class="solution-card-body">Full-site behavioral analysis and prioritized test roadmaps that clients can act on — not a 40-page PDF of recommendations that sit in a folder forever. Everything is tied to revenue impact.</p>
+        <ul class="deliverables">
+          <li>Full-site behavioral audit (heatmaps, funnels, session recordings)</li>
+          <li>Conversion audit deliverable structured for client presentation</li>
+          <li>A/B test strategy, prioritization matrix, and statistical analysis</li>
+          <li>Landing page optimization for paid traffic campaigns</li>
+          <li>Checkout and form funnel diagnostics with specific fix recommendations</li>
+        </ul>
+      </div>
+
+      <div class="solution-card reveal-scale" style="--delay:200ms">
+        <div class="solution-icon"><i data-lucide="graduation-cap"></i></div>
+        <h3 class="solution-card-title">Team Upskilling & Consultations</h3>
+        <p class="solution-card-body">Your analysts are smart. They just need someone with deep implementation experience to accelerate them on the hard stuff — not generic training videos, but hands-on work with your actual clients and tools.</p>
+        <ul class="deliverables">
+          <li>1:1 or group sessions with your analytics and marketing team</li>
+          <li>GA4 advanced setup and GTM architecture deep-dives</li>
+          <li>Attribution modeling and data layer workshops</li>
+          <li>Working documentation your team can act from independently after I leave</li>
+          <li>Ad-hoc technical support on live projects when problems come up</li>
+        </ul>
+      </div>
+
+      <div class="solution-card reveal-scale" style="--delay:300ms">
+        <div class="solution-icon"><i data-lucide="users"></i></div>
+        <h3 class="solution-card-title">Embedded Project Specialist</h3>
+        <p class="solution-card-body">For longer engagements where you need someone acting as a senior team member — not a freelancer handed a brief. I integrate with your Slack, your reporting cadence, and your client communication style.</p>
+        <ul class="deliverables">
+          <li>Full integration with your agency workflow — Slack, Notion, your tools</li>
+          <li>Fixed deliverables, clear timelines, no scope creep surprises from my side</li>
+          <li>Regular async updates in your preferred format</li>
+          <li>You brief me, I execute, you present. No overhead on your end.</li>
+          <li>Available for client calls as a background expert if needed</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ PROCESS ═══════════════════════════════════════ -->
+<section class="process-section" id="how-it-works">
+  <div class="process-inner">
+    <div class="process-header reveal-blur">
+      <p class="eyebrow">How we work together</p>
+      <h2 class="process-title">Brief me on Monday. Client-ready work by the deadline.</h2>
+      <p class="process-sub">No onboarding carousel. No strategy calls before the strategy call. Just clear scope, clean execution, and deliverables that make your agency look good.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-connector"></div>
+
+      <div class="process-step reveal-scale" style="--delay:0ms">
+        <div class="step-num">1</div>
+        <div class="step-period">Day 1–3</div>
+        <h3 class="step-title">Brief</h3>
+        <p class="step-body">You send the project brief. We align on scope, deliverables, timeline, and fixed price. No discovery call carousel. One conversation and we have a clear SOW — or I'll flag what's missing before we start.</p>
+      </div>
+
+      <div class="process-step reveal-scale" style="--delay:100ms">
+        <div class="step-num">2</div>
+        <div class="step-period">Week 1–4</div>
+        <h3 class="step-title">Execute</h3>
+        <p class="step-body">I do the work. You get regular updates in whatever format your agency uses. All outputs are white-labeled, client-ready, and structured for how your team presents deliverables — not how I'd present them.</p>
+      </div>
+
+      <div class="process-step reveal-scale" style="--delay:200ms">
+        <div class="step-num">3</div>
+        <div class="step-period">End of project</div>
+        <h3 class="step-title">Deliver & Hand Over</h3>
+        <p class="step-body">Final deliverables, complete documentation, and a clean handover your team can own independently. I'm available for follow-up questions for 2 weeks post-delivery — no extra charge.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ VS TABLE ═══════════════════════════════════════ -->
+<section class="vs-section">
+  <div class="vs-inner">
+    <div class="vs-header reveal-blur">
+      <p class="eyebrow">The honest comparison</p>
+      <h2 class="vs-title">Me vs. a junior freelancer</h2>
+      <p class="vs-sub">The gap between someone who can do the task and someone who's done it across 50+ projects shows immediately in the output quality.</p>
+    </div>
+    <table class="vs-table reveal-scale" style="--delay:0ms">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="col-bad">Junior Freelancer</th>
+          <th class="col-good">Working with Hichem</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Execution depth</td>
+          <td class="bad"><span class="crs">✗</span>Knows the tools; learns the hard parts on your project</td>
+          <td class="good"><span class="chk">✓</span>50+ implementations — pattern recognition, not guesswork</td>
+        </tr>
+        <tr>
+          <td>Timeline reliability</td>
+          <td class="bad"><span class="crs">✗</span>First time doing it → underestimates → slips</td>
+          <td class="good"><span class="chk">✓</span>Fixed scope + realistic estimates from day one</td>
+        </tr>
+        <tr>
+          <td>Pricing model</td>
+          <td class="bad"><span class="crs">✗</span>Hourly — cost compounds as complexity increases</td>
+          <td class="good"><span class="chk">✓</span>Fixed price — you know the cost before you quote the client</td>
+        </tr>
+        <tr>
+          <td>White-label</td>
+          <td class="bad"><span class="crs">✗</span>Sometimes. Often wants credit or co-branding.</td>
+          <td class="good"><span class="chk">✓</span>Default. No credits, no branding, no trace.</td>
+        </tr>
+        <tr>
+          <td>Agency workflow</td>
+          <td class="bad"><span class="crs">✗</span>Freelancer working style — needs hand-holding on process</td>
+          <td class="good"><span class="chk">✓</span>Agency-native — I adapt to your tools, formats, and cadence</td>
+        </tr>
+        <tr>
+          <td>Team upskilling</td>
+          <td class="bad"><span class="crs">✗</span>Execution only — your team learns nothing lasting</td>
+          <td class="good"><span class="chk">✓</span>Documentation + async sessions that build internal capability</td>
+        </tr>
+        <tr>
+          <td>Post-delivery support</td>
+          <td class="bad"><span class="crs">✗</span>Project ends. Questions go unanswered.</td>
+          <td class="good"><span class="chk">✓</span>2-week follow-up window included in every engagement</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ TESTIMONIALS ═══════════════════════════════════════ -->
+<section class="testi-section">
+  <div class="testi-inner">
+    <div class="testi-header reveal-blur">
+      <h2 class="testi-title">Don't take my word for it</h2>
+      <p class="testi-sub">★★★★★ &nbsp; Rated 4.8/5 from 26+ clients</p>
+    </div>
+    <script src="https://widget.senja.io/widget/fccad927-8689-4142-afd3-6549b0aa06fa/platform.js" type="text/javascript" async></script>
+    <div class="senja-embed" data-id="fccad927-8689-4142-afd3-6549b0aa06fa" data-mode="shadow" data-lazyload="false" style="display:block;width:100%;"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ CTA ═══════════════════════════════════════ -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <p class="eyebrow reveal" style="--delay:0ms; color:rgba(231,74,26,0.8)">Let's talk</p>
+    <h2 class="cta-title reveal-blur" style="--delay:80ms">
+      Have a project that needs senior hands?
+    </h2>
+    <p class="cta-sub reveal" style="--delay:180ms">
+      Book a free 30-minute call. Bring the brief, the scope, the timeline.
+      I'll tell you exactly what I can deliver, at what cost — no fluff, no agency sales process.
+    </p>
+    <div class="reveal" style="--delay:260ms">
+      <a href="https://cal.com/hichembennaceur/30min" class="cta-btn">
+        Talk to me about a project →
+      </a>
+      <p class="cta-note">30 minutes. No pitch. Just scope, timeline, and a fixed price.</p>
+    </div>
+    <div class="cal-embed reveal" style="--delay:320ms">
+      <div id="agency-cal"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span class="footer-logo">Hichem Bennaceur</span>
+  <div class="footer-links">
+    <a href="/" class="footer-link">← Back to home</a>
+    <a href="/dtc" class="footer-link">DTC Brands</a>
+    <a href="/saas" class="footer-link">SaaS</a>
+    <a href="#contact" class="footer-link">Book a call</a>
+  </div>
+</footer>
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<!-- Cal.com embed -->
+<script type="text/javascript">
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal; let ar = arguments;
+      if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; }
+      if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){ cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; }
+      p(cal, ar);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  Cal("init", "agency30min", {origin:"https://app.cal.com"});
+  Cal.ns["agency30min"]("inline", {
+    elementOrSelector: "#agency-cal",
+    config: {"layout":"week_view","useSlotsViewOnSmallScreen":"true"},
+    calLink: "hichem/30min",
+  });
+  Cal.ns["agency30min"]("ui", {
+    "cssVarsPerTheme": {"light":{"cal-brand":"#E74A1A"},"dark":{"cal-brand":"#E74A1A"}},
+    "hideEventTypeDetails": false,
+    "layout": "week_view"
+  });
+</script>
+
+<!-- Page scripts -->
+<script>
+  // Lucide icons
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+
+  const bar = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    if (bar) bar.style.width = pct + '%';
+  }, { passive: true });
+
+  const obs = new IntersectionObserver(
+    (entries) => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+    }),
+    { threshold: 0.07, rootMargin: '0px 0px -28px 0px' }
+  );
+  document.querySelectorAll('.reveal, .reveal-scale, .reveal-blur').forEach(el => obs.observe(el));
+
+  document.querySelectorAll('.hero .reveal, .hero .reveal-blur').forEach(el => {
+    const delay = parseInt(el.style.getPropertyValue('--delay') || '0') || 0;
+    setTimeout(() => el.classList.add('in-view'), delay);
+  });
+  document.querySelector('.hero-tag')?.classList.add('in-view');
+
+  document.querySelectorAll('.solution-card, .value-card, .pain-item').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const dx = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+      const dy = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+      card.style.transition = 'transform 0.05s ease';
+      card.style.transform = `perspective(900px) rotateY(${dx * 5}deg) rotateX(${-dy * 5}deg) translateZ(5px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+      card.style.transform = '';
+    });
+  });
+</script>
+
+</Layout>

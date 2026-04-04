@@ -1,0 +1,931 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Analytics & CRO for SaaS — Hichem Bennaceur"
+  description="I deconstruct your full user journey from first ad click to product activation — and fix every checkpoint where you're losing people. Acquisition, activation, retention."
+  canonicalUrl="https://hichembennaceur.com/saas"
+>
+
+<style>
+  @import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap');
+
+  :root {
+    --cream: #F9F8F2;
+    --cream-dark: #F2EDE3;
+    --orange: #E74A1A;
+    --blue: #17488B;
+    --text: #101010;
+    --muted: #666;
+    --border: 1px solid #E5E3DA;
+    --radius: 12px;
+    --font: 'Satoshi', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); background: var(--cream); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ─── SCROLL PROGRESS ─── */
+  .scroll-progress {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--orange) 0%, #ff6535 50%, #ff8855 100%);
+    box-shadow: 0 0 12px rgba(231,74,26,0.6);
+    z-index: 999; pointer-events: none;
+  }
+
+  /* ─── NAV ─── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(249,248,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: var(--border);
+    padding: 0 48px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .nav-logo { font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
+  .nav-logo:hover { color: var(--orange); }
+  .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 14px; color: var(--muted); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--orange); color: #fff; font-size: 13px; font-weight: 700;
+    padding: 9px 20px; border-radius: 1000px;
+    transition: opacity 0.2s, transform 0.2s; white-space: nowrap;
+  }
+  .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 88px 48px 72px;
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(23,72,139,0.07);
+    border: 1px solid rgba(23,72,139,0.18);
+    color: var(--blue); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 1000px; margin-bottom: 28px;
+  }
+  .hero-tag-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--blue);
+    animation: pulseDot 2s infinite;
+  }
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.65); }
+  }
+  .hero-title {
+    font-size: clamp(38px, 6vw, 72px);
+    font-weight: 900; letter-spacing: -0.035em; line-height: 1.04;
+    color: var(--text); margin-bottom: 24px;
+  }
+  .hero-title .orange { color: var(--orange); }
+  .hero-title .blue { color: var(--blue); }
+  .hero-title .underline-accent {
+    text-decoration: underline;
+    text-decoration-color: var(--orange);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+  }
+  .hero-sub {
+    font-size: 18px; line-height: 1.72; color: var(--muted);
+    max-width: 680px; margin: 0 auto 40px;
+  }
+  .hero-actions {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; flex-wrap: wrap; margin-bottom: 32px;
+  }
+  .btn-primary {
+    background: var(--orange); color: #fff; font-weight: 700; font-size: 15px;
+    padding: 14px 28px; border-radius: 1000px;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: opacity 0.2s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+  .btn-primary::after {
+    content: ''; position: absolute; top: 0; left: -90%; width: 55%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+    transform: skewX(-20deg); pointer-events: none;
+  }
+  .btn-primary:hover::after { animation: shimmer 0.6s ease forwards; }
+  @keyframes shimmer { from { left: -90%; } to { left: 150%; } }
+  .btn-ghost {
+    font-size: 14px; color: var(--muted);
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--text); }
+  .trust-bar {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-size: 13px; color: var(--muted);
+  }
+  .trust-stars { color: #F59E0B; letter-spacing: 2px; font-size: 14px; }
+
+  /* ─── SECTION EYEBROW ─── */
+  .eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--orange); margin-bottom: 14px;
+  }
+
+  /* ─── FUNNEL VISUAL ─── */
+  .funnel-section {
+    background: var(--cream-dark); border-top: var(--border); border-bottom: var(--border);
+    padding: 64px 48px;
+  }
+  .funnel-inner { max-width: 960px; margin: 0 auto; text-align: center; }
+  .funnel-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 28px;
+  }
+  .funnel-steps {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; flex-wrap: wrap;
+  }
+  .funnel-step {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .funnel-pill {
+    padding: 10px 22px; border-radius: 1000px;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.03em;
+  }
+  .funnel-pill.active { background: var(--orange); color: #fff; }
+  .funnel-pill.dim { background: rgba(0,0,0,0.06); color: var(--muted); }
+  .funnel-note { font-size: 11px; color: var(--muted); }
+  .funnel-arrow {
+    font-size: 18px; color: rgba(0,0,0,0.18); padding: 0 6px; align-self: center; margin-bottom: 20px;
+  }
+
+  /* ─── PAIN SECTION ─── */
+  .pain-section {
+    background:
+      radial-gradient(ellipse 55% 60% at 95% 0%, rgba(23,72,139,0.2), transparent 60%),
+      radial-gradient(ellipse 40% 50% at 8% 100%, rgba(231,74,26,0.1), transparent 55%),
+      #101010;
+    color: #fff; padding: 96px 48px;
+  }
+  .pain-inner { max-width: 1160px; margin: 0 auto; }
+  .pain-title {
+    font-size: clamp(30px, 3.8vw, 48px); font-weight: 900;
+    letter-spacing: -0.03em; line-height: 1.1; color: #fff;
+    max-width: 760px; margin-bottom: 56px;
+  }
+  .pain-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; margin-bottom: 48px;
+  }
+  .pain-item {
+    padding: 32px 28px;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.03);
+    transition: background 0.25s;
+  }
+  .pain-item:hover { background: rgba(255,255,255,0.07); }
+  .pain-item:nth-child(1) { border-radius: 12px 0 0 0; }
+  .pain-item:nth-child(2) { border-radius: 0; }
+  .pain-item:nth-child(3) { border-radius: 0 12px 0 0; }
+  .pain-item:nth-child(4) { border-radius: 0 0 0 12px; }
+  .pain-item:nth-child(5) { border-radius: 0; }
+  .pain-item:nth-child(6) { border-radius: 0 0 12px 0; }
+  .pain-num {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    color: rgba(231,74,26,0.65); margin-bottom: 12px;
+  }
+  .pain-item-title {
+    font-size: 16px; font-weight: 800; color: #fff;
+    margin-bottom: 10px; line-height: 1.35;
+  }
+  .pain-item-body {
+    font-size: 13.5px; color: rgba(255,255,255,0.48); line-height: 1.72;
+  }
+  .pain-callout {
+    background: rgba(231,74,26,0.09);
+    border: 1px solid rgba(231,74,26,0.22);
+    border-radius: 12px; padding: 28px 32px;
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .pain-callout-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .pain-callout-text {
+    font-size: 15.5px; color: rgba(255,255,255,0.75); line-height: 1.7;
+  }
+  .pain-callout-text strong { color: #fff; }
+
+  /* ─── COST STATS ─── */
+  .cost-section {
+    background: var(--cream-dark); border-top: var(--border); border-bottom: var(--border);
+    padding: 88px 48px;
+  }
+  .cost-inner { max-width: 1160px; margin: 0 auto; }
+  .cost-header { text-align: center; margin-bottom: 56px; }
+  .cost-title {
+    font-size: clamp(26px, 3.2vw, 40px); font-weight: 900;
+    letter-spacing: -0.025em; color: var(--text); margin-bottom: 10px;
+  }
+  .cost-sub { font-size: 15px; color: var(--muted); max-width: 480px; margin: 0 auto; }
+  .cost-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .cost-card {
+    background: var(--cream); border: var(--border); border-radius: var(--radius);
+    padding: 32px 28px; position: relative; overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .cost-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px; background: var(--orange);
+  }
+  .cost-card-num {
+    font-size: clamp(40px, 4.5vw, 56px); font-weight: 900;
+    color: var(--orange); letter-spacing: -0.05em; line-height: 1; margin-bottom: 8px;
+  }
+  .cost-card-title {
+    font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px;
+  }
+  .cost-card-body { font-size: 13px; color: var(--muted); line-height: 1.68; }
+
+  /* ─── SOLUTION SECTION ─── */
+  .solution-section {
+    background:
+      radial-gradient(ellipse 45% 65% at 3% 50%, rgba(23,72,139,0.14), transparent 55%),
+      radial-gradient(ellipse 50% 50% at 97% 10%, rgba(231,74,26,0.08), transparent 55%),
+      #101010;
+    color: #fff; padding: 96px 48px;
+  }
+  .solution-inner { max-width: 1160px; margin: 0 auto; }
+  .solution-header { margin-bottom: 52px; }
+  .solution-title {
+    font-size: clamp(28px, 3.5vw, 46px); font-weight: 900;
+    letter-spacing: -0.03em; line-height: 1.1; color: #fff;
+    max-width: 680px; margin-bottom: 14px;
+  }
+  .solution-sub { font-size: 16px; color: rgba(255,255,255,0.48); max-width: 520px; line-height: 1.65; }
+  .solution-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  }
+  .solution-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: var(--radius); padding: 32px;
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .solution-card:hover { background: rgba(255,255,255,0.09); border-color: rgba(231,74,26,0.28); }
+  .solution-icon {
+    width: 46px; height: 46px; border-radius: 10px;
+    background: rgba(23,72,139,0.2);
+    border: 1px solid rgba(23,72,139,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 20px;
+  }
+  .solution-icon svg { width: 22px; height: 22px; stroke: #60A5FA; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .pain-callout-icon svg { width: 26px; height: 26px; stroke: rgba(231,74,26,0.85); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+  .solution-card-title {
+    font-size: 18px; font-weight: 800; color: #fff;
+    margin-bottom: 10px; line-height: 1.3;
+  }
+  .solution-card-tag {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: rgba(23,72,139,0.25); color: #60A5FA;
+    padding: 3px 10px; border-radius: 1000px; margin-bottom: 12px;
+  }
+  .solution-card-body {
+    font-size: 14px; color: rgba(255,255,255,0.48); line-height: 1.72; margin-bottom: 24px;
+  }
+  .deliverables {
+    list-style: none; display: flex; flex-direction: column; gap: 9px;
+    border-top: 1px solid rgba(255,255,255,0.07); padding-top: 20px;
+  }
+  .deliverables li {
+    font-size: 13px; color: rgba(255,255,255,0.62);
+    display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+  }
+  .deliverables li::before { content: '→'; color: var(--orange); font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+
+  /* ─── PROCESS ─── */
+  .process-section {
+    background: var(--cream); border-top: var(--border); padding: 96px 48px;
+  }
+  .process-inner { max-width: 1160px; margin: 0 auto; }
+  .process-header { text-align: center; margin-bottom: 64px; }
+  .process-title {
+    font-size: clamp(26px, 3.2vw, 42px); font-weight: 900;
+    letter-spacing: -0.025em; color: var(--text); margin-bottom: 12px;
+  }
+  .process-sub { font-size: 15px; color: var(--muted); }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+    position: relative;
+  }
+  .process-connector {
+    position: absolute; top: 35px;
+    left: calc(33.33% + 4px); right: calc(33.33% + 4px); height: 2px;
+    background: linear-gradient(90deg, var(--orange) 0%, rgba(231,74,26,0.15) 100%);
+    pointer-events: none;
+  }
+  .process-step { text-align: center; }
+  .step-num {
+    width: 70px; height: 70px; border-radius: 50%;
+    background: var(--orange); color: #fff;
+    font-size: 22px; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; position: relative; z-index: 1;
+    box-shadow: 0 6px 24px rgba(231,74,26,0.35);
+  }
+  .step-period {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--orange); margin-bottom: 8px;
+  }
+  .step-title {
+    font-size: 18px; font-weight: 800; color: var(--text);
+    letter-spacing: -0.01em; margin-bottom: 10px;
+  }
+  .step-body { font-size: 14px; color: var(--muted); line-height: 1.72; }
+
+  /* ─── VS TABLE ─── */
+  .vs-section {
+    background: var(--cream-dark); border-top: var(--border); border-bottom: var(--border);
+    padding: 88px 48px;
+  }
+  .vs-inner { max-width: 960px; margin: 0 auto; }
+  .vs-header { text-align: center; margin-bottom: 48px; }
+  .vs-title {
+    font-size: clamp(24px, 3vw, 38px); font-weight: 900;
+    letter-spacing: -0.025em; color: var(--text); margin-bottom: 10px;
+  }
+  .vs-sub { font-size: 15px; color: var(--muted); }
+  .vs-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    border: var(--border); border-radius: 14px; overflow: hidden;
+  }
+  .vs-table th {
+    padding: 14px 22px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase; text-align: left;
+  }
+  .vs-table th:first-child { background: rgba(0,0,0,0.04); color: var(--muted); border-right: var(--border); width: 26%; }
+  .vs-table th.col-bad { background: rgba(0,0,0,0.04); color: var(--muted); border-right: var(--border); }
+  .vs-table th.col-good { background: rgba(231,74,26,0.06); color: var(--orange); }
+  .vs-table td {
+    padding: 15px 22px; font-size: 13.5px;
+    border-top: var(--border); line-height: 1.5; vertical-align: middle;
+  }
+  .vs-table td:first-child {
+    font-weight: 600; background: rgba(0,0,0,0.02);
+    border-right: var(--border); color: var(--text);
+  }
+  .vs-table td.bad { color: var(--muted); border-right: var(--border); }
+  .vs-table td.good { color: var(--text); font-weight: 500; }
+  .chk { color: var(--orange); font-weight: 700; margin-right: 5px; }
+  .crs { color: #ccc; margin-right: 5px; }
+
+  /* ─── TESTIMONIALS ─── */
+  .testi-section {
+    padding: 88px 48px; background: var(--cream); border-top: var(--border);
+  }
+  .testi-inner { max-width: 1160px; margin: 0 auto; }
+  .testi-header { text-align: center; margin-bottom: 48px; }
+  .testi-title {
+    font-size: clamp(24px, 3vw, 36px); font-weight: 900;
+    letter-spacing: -0.025em; color: var(--text); margin-bottom: 8px;
+  }
+  .testi-sub { font-size: 14px; color: var(--muted); }
+
+  /* ─── CTA SECTION ─── */
+  .cta-section {
+    background:
+      radial-gradient(ellipse 55% 65% at 95% 100%, rgba(23,72,139,0.22), transparent 60%),
+      radial-gradient(ellipse 45% 45% at 5% 10%, rgba(231,74,26,0.1), transparent 55%),
+      #101010;
+    color: #fff; padding: 100px 48px;
+    text-align: center;
+  }
+  .cta-inner { max-width: 720px; margin: 0 auto; }
+  .cta-title {
+    font-size: clamp(34px, 5vw, 62px); font-weight: 900;
+    letter-spacing: -0.035em; line-height: 1.06; color: #fff; margin-bottom: 20px;
+  }
+  .cta-sub {
+    font-size: 17px; color: rgba(255,255,255,0.52);
+    max-width: 520px; margin: 0 auto 40px; line-height: 1.72;
+  }
+  .cta-btn {
+    background: var(--orange); color: #fff; font-weight: 700; font-size: 16px;
+    padding: 16px 36px; border-radius: 1000px;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: opacity 0.2s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .cta-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+  .cta-btn::after {
+    content: ''; position: absolute; top: 0; left: -90%; width: 55%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+    transform: skewX(-20deg); pointer-events: none;
+  }
+  .cta-btn:hover::after { animation: shimmer 0.6s ease forwards; }
+  .cta-note { margin-top: 16px; font-size: 13px; color: rgba(255,255,255,0.3); }
+  .cal-embed { margin-top: 52px; }
+  #saas-cal { min-height: 500px; }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: #0a0a0a; border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 28px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
+  }
+  .footer-logo { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.5); }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer-link { font-size: 13px; color: rgba(255,255,255,0.3); transition: color 0.2s; }
+  .footer-link:hover { color: var(--orange); }
+
+  /* ─── REVEAL ANIMATIONS ─── */
+  .reveal {
+    opacity: 0; transform: translateY(52px); will-change: opacity, transform;
+    transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--delay, 0ms);
+  }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+  .reveal-scale {
+    opacity: 0; transform: scale(0.8) translateY(36px); will-change: opacity, transform;
+    transition: opacity 0.72s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.72s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: var(--delay, 0ms);
+  }
+  .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
+  .reveal-blur {
+    opacity: 0; transform: translateY(36px); filter: blur(16px); will-change: opacity, transform, filter;
+    transition: opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1), transform 1.15s cubic-bezier(0.16, 1, 0.3, 1), filter 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--delay, 0ms);
+  }
+  .reveal-blur.in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .pain-grid { grid-template-columns: 1fr 1fr; }
+    .solution-grid { grid-template-columns: 1fr; }
+    .cost-grid { grid-template-columns: 1fr; gap: 16px; }
+    .process-steps { grid-template-columns: 1fr; }
+    .process-connector { display: none; }
+    .funnel-steps { gap: 8px; }
+    .pain-item:nth-child(n) { border-radius: 0; }
+    .pain-item:first-child { border-radius: 12px 12px 0 0; }
+    .pain-item:last-child { border-radius: 0 0 12px 12px; }
+  }
+  @media (max-width: 768px) {
+    .nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 56px 24px 48px; }
+    .pain-section, .solution-section, .cta-section { padding: 72px 24px; }
+    .cost-section, .process-section, .vs-section, .testi-section, .funnel-section { padding: 64px 24px; }
+    .pain-grid { grid-template-columns: 1fr; }
+    .funnel-steps { flex-direction: column; align-items: center; }
+    .funnel-arrow { transform: rotate(90deg); margin: 0; padding: 4px 0; }
+    .footer { padding: 24px; flex-direction: column; align-items: flex-start; }
+    .hero-title { font-size: clamp(34px, 9vw, 52px); }
+  }
+</style>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="/" class="nav-logo">Hichem Bennaceur</a>
+  <ul class="nav-links">
+    <li><a href="#what-i-fix">What I fix</a></li>
+    <li><a href="#how-it-works">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Book a journey audit →</a>
+</nav>
+
+<!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+<section class="hero">
+  <span class="hero-tag">
+    <span class="hero-tag-dot"></span>
+    Analytics & CRO for SaaS
+  </span>
+  <h1 class="hero-title reveal-blur" style="--delay:60ms">
+    You're getting signups.<br>
+    You're not getting <span class="underline-accent"><span class="orange">users</span></span>.
+  </h1>
+  <p class="hero-sub reveal" style="--delay:180ms">
+    I deconstruct your full user journey — from first ad impression to product activation
+    and retention — and fix every checkpoint where you're losing people.
+    Acquisition. Activation. Retention. All of it.
+  </p>
+  <div class="hero-actions reveal" style="--delay:280ms">
+    <a href="#contact" class="btn-primary">Book a free journey audit →</a>
+    <a href="#what-i-fix" class="btn-ghost">See where the leaks are ↓</a>
+  </div>
+  <div class="trust-bar reveal" style="--delay:380ms">
+    <span class="trust-stars">★★★★★</span>
+    <span>Rated 4.8/5 · Trusted by SaaS teams across USA, UK & Europe</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ FUNNEL VISUAL ═══════════════════════════════════════ -->
+<section class="funnel-section">
+  <div class="funnel-inner reveal-blur">
+    <p class="funnel-label">Your full funnel — every stage is a potential leak</p>
+    <div class="funnel-steps">
+      <div class="funnel-step">
+        <span class="funnel-pill active">Ad Click</span>
+        <span class="funnel-note">Paid & organic</span>
+      </div>
+      <span class="funnel-arrow">→</span>
+      <div class="funnel-step">
+        <span class="funnel-pill active">Landing Page</span>
+        <span class="funnel-note">Message match</span>
+      </div>
+      <span class="funnel-arrow">→</span>
+      <div class="funnel-step">
+        <span class="funnel-pill active">Signup</span>
+        <span class="funnel-note">Form friction</span>
+      </div>
+      <span class="funnel-arrow">→</span>
+      <div class="funnel-step">
+        <span class="funnel-pill active">Onboarding</span>
+        <span class="funnel-note">Aha moment</span>
+      </div>
+      <span class="funnel-arrow">→</span>
+      <div class="funnel-step">
+        <span class="funnel-pill active">Activation</span>
+        <span class="funnel-note">Core feature use</span>
+      </div>
+      <span class="funnel-arrow">→</span>
+      <div class="funnel-step">
+        <span class="funnel-pill active">Retention</span>
+        <span class="funnel-note">Week 2, Month 1</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ PAIN ═══════════════════════════════════════ -->
+<section class="pain-section" id="what-i-fix">
+  <div class="pain-inner">
+    <p class="eyebrow reveal" style="--delay:0ms">Sound familiar?</p>
+    <h2 class="pain-title reveal-blur" style="--delay:80ms">
+      Most SaaS teams are optimizing the wrong part of the funnel.
+    </h2>
+
+    <div class="pain-grid">
+      <div class="pain-item reveal-scale" style="--delay:0ms">
+        <div class="pain-num">01</div>
+        <h3 class="pain-item-title">Traffic is up. Signups are flat.</h3>
+        <p class="pain-item-body">You've scaled paid spend, improved content, and pushed SEO. Visitors are coming. But conversion from visit to trial isn't moving. The problem isn't awareness — it's the five friction points between your ad and your signup button that nobody's mapped.</p>
+      </div>
+      <div class="pain-item reveal-scale" style="--delay:80ms">
+        <div class="pain-num">02</div>
+        <h3 class="pain-item-title">People sign up. Then they disappear.</h3>
+        <p class="pain-item-body">Activation is your real conversion problem. Users create an account, see the dashboard, get confused about what to do next, and leave. You see the 30-day retention curve. You can't see why it bends where it does.</p>
+      </div>
+      <div class="pain-item reveal-scale" style="--delay:160ms">
+        <div class="pain-num">03</div>
+        <h3 class="pain-item-title">Your churn cliff happens at the exact same point every cohort.</h3>
+        <p class="pain-item-body">Week 2 or week 4 — it's predictable, which means it's fixable. The pattern tells you where the aha moment isn't happening. Without behavioral data layered over that cohort view, you're running onboarding experiments in the dark.</p>
+      </div>
+      <div class="pain-item reveal-scale" style="--delay:240ms">
+        <div class="pain-num">04</div>
+        <h3 class="pain-item-title">You have GA4 and Mixpanel. Neither answers the real questions.</h3>
+        <p class="pain-item-body">GA4 tells you about traffic. Mixpanel tells you about feature usage. Neither tells you why users aren't converting, what's causing your activation gap, or which churned users left before touching your core feature. You have data. You don't have insight.</p>
+      </div>
+      <div class="pain-item reveal-scale" style="--delay:320ms">
+        <div class="pain-num">05</div>
+        <h3 class="pain-item-title">Your onboarding was built to show features — not to create users.</h3>
+        <p class="pain-item-body">Most SaaS onboarding flows are designed by engineers to expose functionality. They're not designed to guide someone from confused newcomer to confident power user. The difference shows directly in your activation rate and time-to-value.</p>
+      </div>
+      <div class="pain-item reveal-scale" style="--delay:400ms">
+        <div class="pain-num">06</div>
+        <h3 class="pain-item-title">You're optimizing ad creative. The funnel they lead to is leaking.</h3>
+        <p class="pain-item-body">The most expensive place to lose a potential customer is after they've clicked your ad and landed on your site. Improving conversion at the bottom of your funnel is almost always higher ROI than improving CTR at the top. Most teams have it backwards.</p>
+      </div>
+    </div>
+
+    <div class="pain-callout reveal" style="--delay:0ms">
+      <div class="pain-callout-icon"><i data-lucide="trending-down"></i></div>
+      <p class="pain-callout-text">
+        <strong>Most SaaS teams invest in acquisition while activation and retention bleed users out the other side.</strong>
+        Fixing the bottom of your funnel almost always beats scaling the top.
+        The math is simple — the measurement isn't.
+        That's where I come in.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ STATS ═══════════════════════════════════════ -->
+<section class="cost-section">
+  <div class="cost-inner">
+    <div class="cost-header reveal-blur">
+      <p class="eyebrow">The baseline problem</p>
+      <h2 class="cost-title">What SaaS analytics actually looks like in practice</h2>
+      <p class="cost-sub">These are patterns I see in nearly every SaaS funnel audit — not edge cases.</p>
+    </div>
+    <div class="cost-grid">
+      <div class="cost-card reveal-scale" style="--delay:0ms">
+        <div class="cost-card-num">~60%</div>
+        <div class="cost-card-title">of SaaS trials never activate</div>
+        <p class="cost-card-body">Most free trials end not because users decided to leave — but because they never found a reason to stay. They hit the product, got confused, and quietly churned. You counted them as signups. They were always leads.</p>
+      </div>
+      <div class="cost-card reveal-scale" style="--delay:100ms">
+        <div class="cost-card-num">&lt;40%</div>
+        <div class="cost-card-title">average onboarding completion rate</div>
+        <p class="cost-card-body">The majority of users who sign up never complete the first meaningful action in your product. Every incomplete onboarding is a user you paid to acquire who never had a chance to become retained.</p>
+      </div>
+      <div class="cost-card reveal-scale" style="--delay:200ms">
+        <div class="cost-card-num">3–5×</div>
+        <div class="cost-card-title">ROI of retention vs acquisition spend</div>
+        <p class="cost-card-body">Improving your activation rate by even 10% can outperform doubling your paid acquisition budget in terms of revenue impact. The teams winning in SaaS right now are obsessing over activation, not ad spend.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SOLUTION ═══════════════════════════════════════ -->
+<section class="solution-section">
+  <div class="solution-inner">
+    <div class="solution-header reveal-blur">
+      <p class="eyebrow">Where I focus</p>
+      <h2 class="solution-title">Every growth pillar. Every friction point. Fixed.</h2>
+      <p class="solution-sub">I work across the full AARRR funnel — from the first ad to retained power users. Each stage gets the same depth of analysis and the same rigor of execution.</p>
+    </div>
+    <div class="solution-grid">
+
+      <div class="solution-card reveal-scale" style="--delay:0ms">
+        <div class="solution-icon"><i data-lucide="target"></i></div>
+        <div class="solution-card-tag">Acquisition</div>
+        <h3 class="solution-card-title">Ads → Landing Page → Signup Audit</h3>
+        <p class="solution-card-body">Map and fix every friction point between your paid traffic and your signup confirmation. Most SaaS teams improve CTR when they should be improving what happens after the click.</p>
+        <ul class="deliverables">
+          <li>Paid traffic + landing page message-match audit</li>
+          <li>Homepage and pricing page conversion analysis</li>
+          <li>Signup form friction identification and fix recommendations</li>
+          <li>Traffic source → activation rate segmentation (which source converts best?)</li>
+          <li>Ad-to-onboarding flow consistency review</li>
+        </ul>
+      </div>
+
+      <div class="solution-card reveal-scale" style="--delay:100ms">
+        <div class="solution-icon"><i data-lucide="rocket"></i></div>
+        <div class="solution-card-tag">Activation</div>
+        <h3 class="solution-card-title">Signup → Aha Moment Analysis</h3>
+        <p class="solution-card-body">Find exactly where users get confused, stall, and leave. Map the path your best users take to activation — then rebuild your onboarding to guide everyone there faster.</p>
+        <ul class="deliverables">
+          <li>End-to-end onboarding flow audit with friction point mapping</li>
+          <li>Aha moment identification and time-to-value measurement</li>
+          <li>Behavioral analysis: heatmaps, session recordings, click patterns</li>
+          <li>Onboarding completion rate benchmarking by user segment</li>
+          <li>CRO recommendations prioritized by activation rate impact</li>
+        </ul>
+      </div>
+
+      <div class="solution-card reveal-scale" style="--delay:200ms">
+        <div class="solution-icon"><i data-lucide="refresh-cw"></i></div>
+        <div class="solution-card-tag">Retention</div>
+        <h3 class="solution-card-title">Week 1 → Month 3 Retention Deep-Dive</h3>
+        <p class="solution-card-body">Your retention curve tells a story. I translate it into specific user behaviors, churn triggers, and feature adoption gaps — then build the roadmap to fix each one systematically.</p>
+        <ul class="deliverables">
+          <li>Cohort analysis: when users churn, which cohorts retain best and why</li>
+          <li>Feature adoption vs. retention correlation (what do retained users actually do?)</li>
+          <li>Power user behavior mapping — the journey from signup to loyal user</li>
+          <li>Churn trigger identification through behavioral signals before they leave</li>
+          <li>Winback campaign data strategy and segment targeting</li>
+        </ul>
+      </div>
+
+      <div class="solution-card reveal-scale" style="--delay:300ms">
+        <div class="solution-icon"><i data-lucide="bar-chart-2"></i></div>
+        <div class="solution-card-tag">Infrastructure</div>
+        <h3 class="solution-card-title">Instrumentation & Growth Dashboards</h3>
+        <p class="solution-card-body">You can't fix what you can't see. I build the analytics infrastructure that gives your team a live view of every AARRR stage — not pageview counts, but the metrics that actually drive growth decisions.</p>
+        <ul class="deliverables">
+          <li>Full product analytics setup (GA4 + Mixpanel or Amplitude)</li>
+          <li>Custom event taxonomy designed around your user journey milestones</li>
+          <li>Funnel dashboard showing conversion at each AARRR stage clearly</li>
+          <li>Weekly executive dashboard: activation rate, retention curve, revenue</li>
+          <li>Tracking documentation your team can maintain and build on independently</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ PROCESS ═══════════════════════════════════════ -->
+<section class="process-section" id="how-it-works">
+  <div class="process-inner">
+    <div class="process-header reveal-blur">
+      <p class="eyebrow">How it works</p>
+      <h2 class="process-title">Map the journey. Find the leaks. Fix them.</h2>
+      <p class="process-sub">Three phases, each building on the last. Every recommendation tied to a specific metric and a specific friction point — not a generic best practices list.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-connector"></div>
+
+      <div class="process-step reveal-scale" style="--delay:0ms">
+        <div class="step-num">1</div>
+        <div class="step-period">Week 1–2</div>
+        <h3 class="step-title">Map</h3>
+        <p class="step-body">Full user journey audit — from the first touchpoint to feature adoption. Every checkpoint documented, every friction point flagged, every instrumentation gap identified. You get a complete picture of what your funnel actually looks like, not what you think it looks like.</p>
+      </div>
+
+      <div class="process-step reveal-scale" style="--delay:100ms">
+        <div class="step-num">2</div>
+        <div class="step-period">Week 3–4</div>
+        <h3 class="step-title">Find</h3>
+        <p class="step-body">Behavioral analysis, cohort diagnostics, and funnel modeling. I show you exactly where users drop off, which fixes will move your activation and retention metrics most, and the order to tackle them in — tied to revenue impact, not gut feel.</p>
+      </div>
+
+      <div class="process-step reveal-scale" style="--delay:200ms">
+        <div class="step-num">3</div>
+        <div class="step-period">Month 2+</div>
+        <h3 class="step-title">Fix</h3>
+        <p class="step-body">Prioritized CRO roadmap execution, tracking implementation, and ongoing measurement. Every change tracked against your activation and retention metrics. Monthly review to assess what's working and reprioritize based on the data, not assumptions.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ VS TABLE ═══════════════════════════════════════ -->
+<section class="vs-section">
+  <div class="vs-inner">
+    <div class="vs-header reveal-blur">
+      <p class="eyebrow">Why me, not a generic analytics agency</p>
+      <h2 class="vs-title">Full-funnel SaaS focus. Not generic analytics.</h2>
+      <p class="vs-sub">A generic web analytics agency tracks pageviews. I track the specific user journey events that predict whether someone becomes a retained, paying customer.</p>
+    </div>
+    <table class="vs-table reveal-scale" style="--delay:0ms">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="col-bad">Generic Analytics Agency</th>
+          <th class="col-good">Working with Hichem</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Funnel scope</td>
+          <td class="bad"><span class="crs">✗</span>Website only — traffic, sessions, bounce rate</td>
+          <td class="good"><span class="chk">✓</span>Full AARRR — ads through retention and revenue</td>
+        </tr>
+        <tr>
+          <td>Product context</td>
+          <td class="bad"><span class="crs">✗</span>No understanding of SaaS activation or onboarding</td>
+          <td class="good"><span class="chk">✓</span>Built around SaaS growth mechanics — aha moment, activation, churn</td>
+        </tr>
+        <tr>
+          <td>Instrumentation</td>
+          <td class="bad"><span class="crs">✗</span>Standard GA4 setup — pageviews and session data</td>
+          <td class="good"><span class="chk">✓</span>Custom event taxonomy tied to your user journey milestones</td>
+        </tr>
+        <tr>
+          <td>Retention focus</td>
+          <td class="bad"><span class="crs">✗</span>Not in scope — acquisition and traffic only</td>
+          <td class="good"><span class="chk">✓</span>Cohort analysis, churn triggers, feature adoption mapping</td>
+        </tr>
+        <tr>
+          <td>CRO approach</td>
+          <td class="bad"><span class="crs">✗</span>Landing page best practices — generic, not SaaS-specific</td>
+          <td class="good"><span class="chk">✓</span>Onboarding flow, signup form, and activation journey optimization</td>
+        </tr>
+        <tr>
+          <td>Reporting</td>
+          <td class="bad"><span class="crs">✗</span>Sessions, pageviews, CTR — vanity metrics</td>
+          <td class="good"><span class="chk">✓</span>Activation rate, time-to-value, retention by cohort, MRR impact</td>
+        </tr>
+        <tr>
+          <td>Access</td>
+          <td class="bad"><span class="crs">✗</span>Account manager + 48–72hr response window</td>
+          <td class="good"><span class="chk">✓</span>Direct access, async-first, transparent on every decision</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ TESTIMONIALS ═══════════════════════════════════════ -->
+<section class="testi-section">
+  <div class="testi-inner">
+    <div class="testi-header reveal-blur">
+      <h2 class="testi-title">Don't take my word for it</h2>
+      <p class="testi-sub">★★★★★ &nbsp; Rated 4.8/5 from 26+ clients</p>
+    </div>
+    <script src="https://widget.senja.io/widget/fccad927-8689-4142-afd3-6549b0aa06fa/platform.js" type="text/javascript" async></script>
+    <div class="senja-embed" data-id="fccad927-8689-4142-afd3-6549b0aa06fa" data-mode="shadow" data-lazyload="false" style="display:block;width:100%;"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ CTA ═══════════════════════════════════════ -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <p class="eyebrow reveal" style="--delay:0ms; color:rgba(231,74,26,0.8)">Let's talk</p>
+    <h2 class="cta-title reveal-blur" style="--delay:80ms">
+      Let's map your funnel. You'll see exactly where you're leaking.
+    </h2>
+    <p class="cta-sub reveal" style="--delay:180ms">
+      Book a free 30-minute journey audit call. I'll review your current funnel,
+      identify your biggest acquisition and activation gaps, and show you where to
+      start — no pitch, no retainer required.
+    </p>
+    <div class="reveal" style="--delay:260ms">
+      <a href="https://cal.com/hichem/30min" class="cta-btn">
+        Book my free journey audit →
+      </a>
+      <p class="cta-note">30 minutes. No agency pitch. Just an honest map of where your funnel breaks.</p>
+    </div>
+    <div class="cal-embed reveal" style="--delay:320ms">
+      <div id="saas-cal"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span class="footer-logo">Hichem Bennaceur</span>
+  <div class="footer-links">
+    <a href="/" class="footer-link">← Back to home</a>
+    <a href="/dtc" class="footer-link">DTC Brands</a>
+    <a href="/agencies" class="footer-link">Agencies</a>
+    <a href="#contact" class="footer-link">Book a call</a>
+  </div>
+</footer>
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<!-- Cal.com embed -->
+<script type="text/javascript">
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal; let ar = arguments;
+      if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; }
+      if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){ cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; }
+      p(cal, ar);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  Cal("init", "saas30min", {origin:"https://app.cal.com"});
+  Cal.ns["saas30min"]("inline", {
+    elementOrSelector: "#saas-cal",
+    config: {"layout":"week_view","useSlotsViewOnSmallScreen":"true"},
+    calLink: "hichem/30min",
+  });
+  Cal.ns["saas30min"]("ui", {
+    "cssVarsPerTheme": {"light":{"cal-brand":"#E74A1A"},"dark":{"cal-brand":"#E74A1A"}},
+    "hideEventTypeDetails": false,
+    "layout": "week_view"
+  });
+</script>
+
+<!-- Page scripts -->
+<script>
+  // Lucide icons
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+
+  const bar = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    if (bar) bar.style.width = pct + '%';
+  }, { passive: true });
+
+  const obs = new IntersectionObserver(
+    (entries) => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+    }),
+    { threshold: 0.07, rootMargin: '0px 0px -28px 0px' }
+  );
+  document.querySelectorAll('.reveal, .reveal-scale, .reveal-blur').forEach(el => obs.observe(el));
+
+  document.querySelectorAll('.hero .reveal, .hero .reveal-blur').forEach(el => {
+    const delay = parseInt(el.style.getPropertyValue('--delay') || '0') || 0;
+    setTimeout(() => el.classList.add('in-view'), delay);
+  });
+  document.querySelector('.hero-tag')?.classList.add('in-view');
+
+  document.querySelectorAll('.solution-card, .cost-card, .pain-item').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const dx = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+      const dy = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+      card.style.transition = 'transform 0.05s ease';
+      card.style.transform = `perspective(900px) rotateY(${dx * 5}deg) rotateX(${-dy * 5}deg) translateZ(5px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+      card.style.transform = '';
+    });
+  });
+</script>
+
+</Layout>

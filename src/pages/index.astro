@@ -647,6 +647,18 @@ import Layout from '../layouts/Layout.astro';
     font-weight: 700;
     font-size: 12px;
   }
+  .tailored-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #4ADE80;
+    text-decoration: none;
+    transition: gap 0.2s ease;
+  }
+  .tailored-link:hover { gap: 10px; }
 
   /* ─── TESTIMONIALS ─── */
   .testimonials-outer {
@@ -1033,119 +1045,190 @@ import Layout from '../layouts/Layout.astro';
     background: linear-gradient(180deg, var(--cream) 0%, var(--cream-dark) 100%);
   }
 
-  /* ─── ANIMATION SYSTEM ─── */
+  /* ─── ANIMATION SYSTEM (Enhanced) ─── */
 
-  /* Base: fade + rise */
+  /* Base: dramatic fade + rise */
   .reveal {
     opacity: 0;
-    transform: translateY(36px);
+    transform: translateY(56px);
     will-change: opacity, transform;
+    transition:
+      opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--delay, 0ms);
   }
   .reveal.in-view {
     opacity: 1;
     transform: translateY(0);
-    transition:
-      opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: var(--delay, 0ms);
   }
 
-  /* Slide from left */
+  /* Slide from left with subtle rotation */
   .reveal-left {
     opacity: 0;
-    transform: translateX(-40px);
+    transform: translateX(-72px) rotate(-2.5deg);
     will-change: opacity, transform;
+    transition:
+      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--delay, 0ms);
   }
   .reveal-left.in-view {
     opacity: 1;
-    transform: translateX(0);
-    transition:
-      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: var(--delay, 0ms);
+    transform: translateX(0) rotate(0deg);
   }
 
-  /* Slide from right */
+  /* Slide from right with subtle rotation */
   .reveal-right {
     opacity: 0;
-    transform: translateX(48px);
+    transform: translateX(72px) rotate(2.5deg);
     will-change: opacity, transform;
+    transition:
+      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--delay, 0ms);
   }
   .reveal-right.in-view {
     opacity: 1;
-    transform: translateX(0);
-    transition:
-      opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: var(--delay, 0ms);
+    transform: translateX(0) rotate(0deg);
   }
 
-  /* Scale pop — for cards */
+  /* Scale pop — deep bounce spring physics */
   .reveal-scale {
     opacity: 0;
-    transform: scale(0.93) translateY(20px);
+    transform: scale(0.78) translateY(40px);
     will-change: opacity, transform;
+    transition:
+      opacity 0.75s cubic-bezier(0.34, 1.56, 0.64, 1),
+      transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: var(--delay, 0ms);
   }
   .reveal-scale.in-view {
     opacity: 1;
     transform: scale(1) translateY(0);
-    transition:
-      opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
-      transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    transition-delay: var(--delay, 0ms);
   }
 
-  /* Blur + fade — for headlines */
+  /* Blur + fade — cinematic depth-of-field */
   .reveal-blur {
     opacity: 0;
-    transform: translateY(24px);
-    filter: blur(6px);
+    transform: translateY(40px);
+    filter: blur(18px);
     will-change: opacity, transform, filter;
+    transition:
+      opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--delay, 0ms);
   }
   .reveal-blur.in-view {
     opacity: 1;
     transform: translateY(0);
     filter: blur(0);
-    transition:
-      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-      filter 0.6s ease;
-    transition-delay: var(--delay, 0ms);
   }
 
-  /* Clip wipe — for labels/tags */
+  /* Clip wipe — left to right reveal */
   .reveal-clip {
     clip-path: inset(0 100% 0 0);
     opacity: 0;
     will-change: clip-path, opacity;
+    transition:
+      clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.4s ease;
+    transition-delay: var(--delay, 0ms);
   }
   .reveal-clip.in-view {
     clip-path: inset(0 0% 0 0);
     opacity: 1;
-    transition:
-      clip-path 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-      opacity 0.3s ease;
-    transition-delay: var(--delay, 0ms);
   }
 
-  /* Hero photo: scale-in from right */
+  /* Hero photo: dramatic entrance */
   .reveal-photo {
     opacity: 0;
-    transform: translateX(32px) scale(0.96);
+    transform: translateX(64px) scale(0.88) rotate(3deg);
     will-change: opacity, transform;
+    transition:
+      opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--delay, 200ms);
   }
   .reveal-photo.in-view {
     opacity: 1;
-    transform: translateX(0) scale(1);
-    transition:
-      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: var(--delay, 100ms);
+    transform: translateX(0) scale(1) rotate(0deg);
   }
 
-  /* Counter number — just needs in-view trigger */
+  /* Counter number */
   .count-up { font-variant-numeric: tabular-nums; }
+
+  /* ─── HERO PHOTO FLOAT ─── */
+  @keyframes heroFloat {
+    0%, 100% { transform: translateY(0px); }
+    25%       { transform: translateY(-10px) rotate(0.5deg); }
+    75%       { transform: translateY(-6px) rotate(-0.5deg); }
+  }
+  .hero-photo-circle {
+    animation: heroFloat 7s ease-in-out 1.6s infinite;
+  }
+
+  /* ─── CTA BUTTON SHIMMER ─── */
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -90%;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+    transform: skewX(-20deg);
+    pointer-events: none;
+    transition: none;
+  }
+  .btn-primary:hover::after {
+    animation: btnShimmer 0.6s ease forwards;
+  }
+  @keyframes btnShimmer {
+    from { left: -90%; }
+    to   { left: 150%; }
+  }
+
+  /* ─── SCROLL PROGRESS ─── */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--orange) 0%, #ff6535 50%, #ff8855 100%);
+    box-shadow: 0 0 12px rgba(231,74,26,0.65);
+    z-index: 999;
+    pointer-events: none;
+    transform-origin: left center;
+  }
+
+  /* ─── NAV LINK HOVER UNDERLINE ─── */
+  .nav-links a {
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--orange);
+    border-radius: 2px;
+    transition: width 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-links a:hover::after {
+    width: 100%;
+  }
 </style>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scroll-progress"></div>
 
 <!-- NAV -->
 <nav class="nav">
@@ -1346,37 +1429,41 @@ import Layout from '../layouts/Layout.astro';
   <div class="tailored-inner">
     <div class="tailored-header reveal-blur">
       <h2 class="tailored-title">Tailored Solutions for Your Business</h2>
-      <p class="tailored-sub">As a consultant, I offer tailored solutions for early-stage SaaS, E-commerce, and Agencies. Each business type benefits from specialized expertise to drive growth and maximize potential.</p>
+      <p class="tailored-sub">As a consultant, I offer tailored solutions for DTC Brands, early-stage SaaS, and Agencies. Each business type benefits from specialized expertise to drive growth and maximize potential.</p>
     </div>
     <div class="tailored-grid">
       <div class="tailored-card reveal-scale" style="--delay:0ms">
         <span class="tailored-tag agencies">For Agencies</span>
-        <h3 class="tailored-card-title">Your perfect CRO/Analytics consultant to get analytics projects done</h3>
-        <p class="tailored-card-body">Working with me allows your agency to deliver analytics projects done for less than the cost of an agency. Seamless integration with your team.</p>
+        <h3 class="tailored-card-title">Your agency takes on the project. I deliver it.</h3>
+        <p class="tailored-card-body">White-label analytics and CRO execution — fixed pricing, delivered under your brand. You handle the client relationship. I handle the hard part.</p>
         <ul class="tailored-list">
-          <li>A player consultant</li>
-          <li>Top-level communication</li>
-          <li>Comprehensive collaboration</li>
+          <li>White-label by default</li>
+          <li>Fixed price, you set the margin</li>
+          <li>Agency-native workflow</li>
         </ul>
+        <a href="/agencies" class="tailored-link" style="color:#FF7A55">See what I do for agencies →</a>
       </div>
       <div class="tailored-card reveal-scale" style="--delay:100ms">
-        <span class="tailored-tag ecommerce">For E-commerce</span>
-        <h3 class="tailored-card-title">Maximize your ROI, through data.</h3>
-        <p class="tailored-card-body">I will help you build a multi-touch approach based around sales and customer retention, data-driven simulations for increased conversion rate, to maximize ROI on marketing efforts.</p>
+        <span class="tailored-tag ecommerce">For DTC Brands</span>
+        <h3 class="tailored-card-title">Turn your ad spend into real profit.</h3>
+        <p class="tailored-card-body">Broken tracking, last-click lies, and leaky funnels are costing you more than you think. I fix the data so every growth decision is grounded in truth.</p>
         <ul class="tailored-list">
-          <li>Full funnel tracking</li>
-          <li>Improving decision making</li>
-          <li>Better data accuracy</li>
+          <li>Real multi-touch attribution</li>
+          <li>Server-side tracking & CAPI</li>
+          <li>Checkout funnel CRO</li>
         </ul>
+        <a href="/dtc" class="tailored-link">See what I do for DTC brands →</a>
       </div>
       <div class="tailored-card reveal-scale" style="--delay:200ms">
         <span class="tailored-tag saas">For Early stage SaaS</span>
-        <h3 class="tailored-card-title">Deeply understand your user journey</h3>
-        <p class="tailored-card-body">I provide customized strategies for you to accelerate your acquisition, optimized conversion funnels for rapid growth, and actionable insights to enhance product performance.</p>
+        <h3 class="tailored-card-title">You're getting signups. You're not getting users.</h3>
+        <p class="tailored-card-body">I map your full user journey from ad click to activation — then fix every checkpoint where you're losing people. Acquisition, activation, retention.</p>
         <ul class="tailored-list">
-          <li>Understand customer behaviour</li>
-          <li>Product Roadmap Adjustments</li>
+          <li>Full AARRR funnel audit</li>
+          <li>Onboarding & activation CRO</li>
+          <li>Retention cohort analysis</li>
         </ul>
+        <a href="/saas" class="tailored-link" style="color:#60A5FA">See what I do for SaaS →</a>
       </div>
     </div>
   </div>
@@ -1535,6 +1622,33 @@ import Layout from '../layouts/Layout.astro';
   );
 
   document.querySelectorAll('.count-up').forEach((el) => counterObserver.observe(el));
+
+  // ── Scroll progress bar ────────────────────────────────────
+  const progressBar = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = maxScroll > 0 ? (scrolled / maxScroll) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }, { passive: true });
+
+  // ── 3D card tilt on hover ─────────────────────────────────
+  document.querySelectorAll('.service-card, .tailored-card, .why-item').forEach((card) => {
+    card.style.transition = 'transform 0.1s ease, box-shadow 0.3s ease';
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const dx = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+      const dy = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+      card.style.transition = 'transform 0.05s ease';
+      card.style.transform = `perspective(900px) rotateY(${dx * 7}deg) rotateX(${-dy * 7}deg) translateZ(8px)`;
+      card.style.boxShadow = `${-dx * 8}px ${dy * 8}px 28px rgba(0,0,0,0.14)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease';
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+  });
 </script>
 
 </Layout>
