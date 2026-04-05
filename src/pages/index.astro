@@ -1,5 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+/** Root-relative in dev; absolute canonical URL in production so links work if the page is opened on a non-default port. */
+const site = import.meta.env.SITE ?? 'https://hichembennaceur.com';
+const pageHref = (path: string) =>
+  import.meta.env.DEV ? path : new URL(path, site).href;
 ---
 
 <Layout title="Hichem Bennaceur — Analytics & CRO Consultant" description="I take care of your Analytics and CRO, to enable data-driven decision-making and fuel your growth.">
@@ -1441,7 +1446,7 @@ import Layout from '../layouts/Layout.astro';
           <li>Fixed price, you set the margin</li>
           <li>Agency-native workflow</li>
         </ul>
-        <a href="/agencies" class="tailored-link" style="color:#FF7A55">See what I do for agencies →</a>
+        <a href={pageHref('/agencies')} class="tailored-link" style="color:#FF7A55">See what I do for agencies →</a>
       </div>
       <div class="tailored-card reveal-scale" style="--delay:100ms">
         <span class="tailored-tag ecommerce">For DTC Brands</span>
@@ -1452,7 +1457,7 @@ import Layout from '../layouts/Layout.astro';
           <li>Server-side tracking & CAPI</li>
           <li>Checkout funnel CRO</li>
         </ul>
-        <a href="/dtc" class="tailored-link">See what I do for DTC brands →</a>
+        <a href={pageHref('/dtc')} class="tailored-link">See what I do for DTC brands →</a>
       </div>
       <div class="tailored-card reveal-scale" style="--delay:200ms">
         <span class="tailored-tag saas">For Early stage SaaS</span>
@@ -1463,7 +1468,7 @@ import Layout from '../layouts/Layout.astro';
           <li>Onboarding & activation CRO</li>
           <li>Retention cohort analysis</li>
         </ul>
-        <a href="/saas" class="tailored-link" style="color:#60A5FA">See what I do for SaaS →</a>
+        <a href={pageHref('/saas')} class="tailored-link" style="color:#60A5FA">See what I do for SaaS →</a>
       </div>
     </div>
   </div>
