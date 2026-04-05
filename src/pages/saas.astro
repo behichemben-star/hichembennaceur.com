@@ -878,14 +878,14 @@ import Layout from '../layouts/Layout.astro';
   Cal("init", "saas30min", {origin:"https://app.cal.com"});
   Cal.ns["saas30min"]("inline", {
     elementOrSelector: "#saas-cal",
-    config: {"layout":"week_view","useSlotsViewOnSmallScreen":"true"},
+    config: {"layout":"month_view"},
     calLink: "hichem/30min",
   });
   Cal.ns["saas30min"]("ui", {
     "cssVarsPerTheme": {"light":{"cal-brand":"#E74A1A"},"dark":{"cal-brand":"#E74A1A"}},
     "hideEventTypeDetails": false,
-    "layout": "column_view",
-    "theme": "light"
+    "layout": "month_view",
+    "theme": "dark"
   });
 </script>
 
