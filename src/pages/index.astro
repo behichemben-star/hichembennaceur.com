@@ -1230,6 +1230,245 @@ const pageHref = (path: string) =>
   .nav-links a:hover::after {
     width: 100%;
   }
+
+  /* ─── COMPARISON SECTION ─── */
+  .comparison-section-wrap {
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(231,74,26,0.08), transparent 60%),
+      var(--black);
+    border-top: var(--border);
+    border-bottom: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .comparison-section {
+    padding: 96px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .comparison-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .comparison-h2 {
+    font-size: clamp(28px, 3.5vw, 46px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: #fff;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 16px;
+  }
+  .comparison-sub {
+    text-align: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 17px;
+    max-width: 600px;
+    margin: 0 auto 56px;
+    line-height: 1.7;
+  }
+  .comparison-problems {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .problem-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 32px;
+  }
+  .problem-card-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 14px;
+  }
+  .problem-card h3 {
+    font-size: 19px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 12px;
+    line-height: 1.35;
+  }
+  .problem-card p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .problem-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .problem-list li {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    padding-left: 22px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .problem-list li::before {
+    content: "×";
+    position: absolute;
+    left: 0;
+    color: #ef4444;
+    font-weight: 900;
+  }
+  .tshaped-bridge {
+    background: rgba(231,74,26,0.07);
+    border: 1px solid rgba(231,74,26,0.22);
+    border-radius: 4px;
+    padding: 40px;
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .bridge-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .bridge-stat-num {
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--orange);
+    line-height: 1;
+    font-family: var(--font-display);
+  }
+  .bridge-stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+  .bridge-divider {
+    width: 1px;
+    background: rgba(255,255,255,0.08);
+    align-self: stretch;
+  }
+  .bridge-copy h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+  .bridge-copy h3 em {
+    font-style: italic;
+    color: var(--orange);
+  }
+  .bridge-copy p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.75;
+  }
+  .comparison-table-wrap {
+    overflow-x: auto;
+    margin-bottom: 48px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+  }
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .comparison-table thead tr {
+    background: rgba(255,255,255,0.03);
+  }
+  .comparison-table th {
+    padding: 16px 24px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .comparison-table th.th-label {
+    text-align: left;
+    color: rgba(255,255,255,0.25);
+    width: 220px;
+  }
+  .comparison-table th.col-freelancer,
+  .comparison-table th.col-agency {
+    color: rgba(255,255,255,0.35);
+  }
+  .comparison-table th.col-me {
+    background: var(--orange);
+    color: #fff;
+  }
+  .comparison-table td {
+    padding: 14px 24px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .comparison-table tr:last-child td {
+    border-bottom: none;
+  }
+  .comparison-table td.row-label {
+    text-align: left;
+    color: rgba(255,255,255,0.45);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .comparison-table td.col-me {
+    color: #fff;
+    font-weight: 600;
+    background: rgba(231,74,26,0.07);
+  }
+  .check { color: #22c55e; font-weight: 700; }
+  .cross { color: #ef4444; }
+  .comparison-quote {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 40px;
+  }
+  .comparison-quote-text {
+    font-size: 19px;
+    font-style: italic;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+  .comparison-quote-attr {
+    font-size: 13px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    .comparison-problems { grid-template-columns: 1fr; }
+    .tshaped-bridge {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .bridge-stats { flex-direction: row; flex-wrap: wrap; gap: 24px; }
+    .comparison-table th, .comparison-table td { padding: 12px 14px; font-size: 13px; }
+    .comparison-table th.th-label, .comparison-table td.row-label { width: 120px; font-size: 11px; }
+  }
 </style>
 
 <!-- SCROLL PROGRESS -->
@@ -1425,6 +1664,127 @@ const pageHref = (path: string) =>
     </div>
   </div>
 </section>
+
+</section>
+</div>
+
+<!-- COMPARISON: FREELANCER vs HICHEM vs AGENCY -->
+<div class="comparison-section-wrap">
+<section class="comparison-section">
+
+  <div class="reveal-blur">
+    <div class="comparison-eyebrow">The Honest Comparison</div>
+    <h2 class="comparison-h2">You're overpaying for overhead.<br>Or underpaying for execution.</h2>
+    <p class="comparison-sub">Most businesses choose between a freelancer who only executes and an agency that charges for every layer of management. There's a smarter third option.</p>
+  </div>
+
+  <div class="comparison-problems">
+    <div class="problem-card reveal-scale" style="--delay:0ms">
+      <div class="problem-card-label">The Agency Problem</div>
+      <h3>You pay for the whole team — even the ones you never meet.</h3>
+      <p>An agency looks impressive on paper. But your project gets handed to a junior, managed by an account manager, approved by a director, and billed at every layer.</p>
+      <ul class="problem-list">
+        <li>3–5 stakeholders dilute every decision</li>
+        <li>You pay for overhead, not output</li>
+        <li>Strategy and execution split between teams</li>
+        <li>Slow feedback loops, expensive revisions</li>
+      </ul>
+    </div>
+    <div class="problem-card reveal-scale" style="--delay:100ms">
+      <div class="problem-card-label">The Freelancer Problem</div>
+      <h3>Execution without strategy is just expensive guessing.</h3>
+      <p>A good freelancer implements what you tell them. But if you don't know what to ask for — or why — you're paying to run faster in the wrong direction.</p>
+      <ul class="problem-list">
+        <li>Execution-only — no strategic layer</li>
+        <li>No cross-client pattern recognition</li>
+        <li>You own the thinking, they own the doing</li>
+        <li>Works in isolation, not inside your team</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tshaped-bridge reveal">
+    <div class="bridge-stats">
+      <div>
+        <div class="bridge-stat-num">50+</div>
+        <div class="bridge-stat-label">clients across<br>verticals</div>
+      </div>
+      <div>
+        <div class="bridge-stat-num">3×</div>
+        <div class="bridge-stat-label">more depth than<br>a freelancer</div>
+      </div>
+      <div>
+        <div class="bridge-stat-num">¼</div>
+        <div class="bridge-stat-label">the cost of<br>an agency</div>
+      </div>
+    </div>
+    <div class="bridge-copy">
+      <h3>T-shaped: I strategize <em>and</em> execute.</h3>
+      <p>Working across 50+ clients means I've seen every pattern — what works in your market, what kills conversion in your funnel, what your competitors are missing. I bring that accumulated knowledge into your retainer from day one. No handoffs. No layers. One person who's accountable for the whole picture — strategy, implementation, and results.</p>
+    </div>
+  </div>
+
+  <div class="comparison-table-wrap reveal">
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th class="th-label">What you get</th>
+          <th class="col-freelancer">Typical Freelancer</th>
+          <th class="col-me">Hichem</th>
+          <th class="col-agency">Typical Agency</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-label">Strategic ownership</td>
+          <td class="cross">Execution only</td>
+          <td class="col-me"><span class="check">✓</span> Full strategy + execution</td>
+          <td>Shared across teams</td>
+        </tr>
+        <tr>
+          <td class="row-label">Who does the work</td>
+          <td>The person you hired</td>
+          <td class="col-me"><span class="check">✓</span> Me — always</td>
+          <td class="cross">Junior + account manager</td>
+        </tr>
+        <tr>
+          <td class="row-label">Stakeholders</td>
+          <td>1</td>
+          <td class="col-me"><span class="check">✓</span> 1 — direct access</td>
+          <td class="cross">3–5 (PM, director, exec)</td>
+        </tr>
+        <tr>
+          <td class="row-label">Pattern recognition</td>
+          <td class="cross">Limited to 1–3 clients</td>
+          <td class="col-me"><span class="check">✓</span> 50+ clients, cross-vertical</td>
+          <td>Siloed by team</td>
+        </tr>
+        <tr>
+          <td class="row-label">Speed to insight</td>
+          <td>Medium</td>
+          <td class="col-me"><span class="check">✓</span> Fast — no approval chains</td>
+          <td class="cross">Slow — 3+ approval layers</td>
+        </tr>
+        <tr>
+          <td class="row-label">Cost for senior depth</td>
+          <td class="cross">High hourly, limited scope</td>
+          <td class="col-me"><span class="check">✓</span> Retainer — predictable</td>
+          <td class="cross">High — you pay the whole team</td>
+        </tr>
+        <tr>
+          <td class="row-label">Previous wins applied</td>
+          <td class="cross">Rarely — limited exposure</td>
+          <td class="col-me"><span class="check">✓</span> Always — cross-client library</td>
+          <td>Sometimes — if not siloed</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="comparison-quote reveal-blur">
+    <p class="comparison-quote-text">"The difference isn't just price — it's that you get someone who's already solved your exact problem across dozens of clients, and is fully accountable for the result."</p>
+    <p class="comparison-quote-attr">— Hichem Bennaceur</p>
+  </div>
 
 </section>
 </div>
