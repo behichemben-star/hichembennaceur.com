@@ -1,0 +1,220 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Blog — CRO, Analytics & Experimentation | Hichem Bennaceur"
+  description="Practical articles on conversion rate optimization, experimentation, and analytics for DTC brands, SaaS, and agencies."
+  canonicalUrl="https://hichembennaceur.com/blog"
+>
+
+<style>
+  @import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap');
+
+  :root {
+    --cream: #F9F8F2;
+    --cream-dark: #F2EDE3;
+    --orange: #E74A1A;
+    --text: #101010;
+    --muted: #666;
+    --border: 1px solid #E5E3DA;
+    --font: 'Satoshi', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); background: var(--cream); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+
+  .scroll-progress {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--orange) 0%, #ff6535 50%, #ff8855 100%);
+    box-shadow: 0 0 12px rgba(231,74,26,0.6);
+    z-index: 999; pointer-events: none;
+  }
+
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(249,248,242,0.92); backdrop-filter: blur(12px);
+    border-bottom: var(--border); padding: 0 48px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .nav-logo { font-weight: 700; font-size: 15px; }
+  .nav-logo:hover { color: var(--orange); }
+  .nav-back { font-size: 13px; color: var(--muted); transition: color 0.2s; }
+  .nav-back:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--orange); color: #fff; font-size: 13px; font-weight: 700;
+    padding: 9px 20px; border-radius: 1000px;
+    transition: opacity 0.2s, transform 0.2s; white-space: nowrap;
+  }
+  .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .blog-hero {
+    background:
+      radial-gradient(ellipse 55% 60% at 95% 0%, rgba(231,74,26,0.12), transparent 60%),
+      #101010;
+    color: #fff; padding: 72px 48px 64px;
+    border-bottom: var(--border);
+  }
+  .blog-hero-inner { max-width: 1100px; margin: 0 auto; }
+  .blog-hero-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 16px;
+  }
+  .blog-hero-title {
+    font-size: clamp(32px, 4.5vw, 52px); font-weight: 900;
+    letter-spacing: -0.03em; line-height: 1.08; color: #fff; margin-bottom: 14px;
+  }
+  .blog-hero-sub { font-size: 16px; color: rgba(255,255,255,0.5); max-width: 520px; line-height: 1.7; }
+
+  .blog-main { max-width: 1100px; margin: 0 auto; padding: 72px 48px 96px; }
+
+  .blog-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+
+  .post-card {
+    background: #fff; border: var(--border); border-radius: 12px;
+    overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+    display: flex; flex-direction: column;
+  }
+  .post-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+
+  .post-card-top {
+    background:
+      radial-gradient(ellipse 60% 50% at 90% 10%, rgba(231,74,26,0.14), transparent 60%),
+      #101010;
+    padding: 32px 28px; min-height: 160px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .post-tag {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: #ff7a55; margin-bottom: 12px;
+  }
+  .post-title {
+    font-size: 18px; font-weight: 800; color: #fff;
+    line-height: 1.3; letter-spacing: -0.01em;
+  }
+
+  .post-card-body { padding: 24px 28px; flex: 1; display: flex; flex-direction: column; }
+  .post-excerpt { font-size: 14px; color: var(--muted); line-height: 1.72; flex: 1; margin-bottom: 20px; }
+  .post-meta { display: flex; align-items: center; justify-content: space-between; }
+  .post-date { font-size: 12px; color: rgba(0,0,0,0.3); }
+  .post-readtime { font-size: 12px; color: rgba(0,0,0,0.3); }
+  .post-link {
+    font-size: 13px; font-weight: 700; color: var(--orange);
+    display: inline-flex; align-items: center; gap: 4px;
+    margin-top: 16px; transition: gap 0.2s;
+  }
+  .post-card:hover .post-link { gap: 8px; }
+
+  .footer {
+    background: #0a0a0a; border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 28px 48px; display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
+  }
+  .footer-logo { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.5); }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer-link { font-size: 13px; color: rgba(255,255,255,0.3); transition: color 0.2s; }
+  .footer-link:hover { color: var(--orange); }
+
+  @media (max-width: 900px) {
+    .blog-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .nav { padding: 0 20px; }
+    .blog-hero { padding: 56px 24px 48px; }
+    .blog-main { padding: 48px 24px 72px; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .footer { padding: 24px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">Hichem Bennaceur</a>
+  <a href="/" class="nav-back">← Home</a>
+  <a href="/#audit" class="nav-cta">Book a free call →</a>
+</nav>
+
+<header class="blog-hero">
+  <div class="blog-hero-inner">
+    <div class="blog-hero-eyebrow">The Blog</div>
+    <h1 class="blog-hero-title">CRO, Experimentation<br>& Analytics — No Fluff</h1>
+    <p class="blog-hero-sub">Practical thinking on conversion optimization, A/B testing methodology, and how serious brands use data to grow. Written from the retainer seat, not the agency pitch deck.</p>
+  </div>
+</header>
+
+<main class="blog-main">
+  <div class="blog-grid">
+
+    <a href="/blog/cro-in-the-ai-era-2026" class="post-card">
+      <div class="post-card-top">
+        <span class="post-tag">CRO Strategy</span>
+        <h2 class="post-title">CRO in the AI Era: How One Specialist Now Outworks an Entire Agency</h2>
+      </div>
+      <div class="post-card-body">
+        <p class="post-excerpt">AI has collapsed the time cost of analysis. What used to require a team of five now takes one specialist with the right setup. Here's what that means for how serious brands should hire in 2026.</p>
+        <div class="post-meta">
+          <span class="post-date">April 2026</span>
+          <span class="post-readtime">8 min read</span>
+        </div>
+        <span class="post-link">Read article →</span>
+      </div>
+    </a>
+
+    <a href="/blog/why-cro-specialists-wont-be-replaced-by-ai" class="post-card">
+      <div class="post-card-top">
+        <span class="post-tag">AI & CRO</span>
+        <h2 class="post-title">Why Full-Cycle CRO Specialists Won't Be Replaced by AI</h2>
+      </div>
+      <div class="post-card-body">
+        <p class="post-excerpt">AI is automating the mechanical parts of conversion optimization. The strategic core — knowing which question to ask, which result to trust — is getting harder to replicate, not easier.</p>
+        <div class="post-meta">
+          <span class="post-date">April 2026</span>
+          <span class="post-readtime">7 min read</span>
+        </div>
+        <span class="post-link">Read article →</span>
+      </div>
+    </a>
+
+    <a href="/blog/strategy-and-execution-the-cro-retainer-edge" class="post-card">
+      <div class="post-card-top">
+        <span class="post-tag">CRO Career</span>
+        <h2 class="post-title">The Two Tracks Every CRO Specialist Must Master Simultaneously</h2>
+      </div>
+      <div class="post-card-body">
+        <p class="post-excerpt">Execution without strategy is expensive guessing. Strategy without execution is just a slide deck. Here's why holding both at once is the only way to stand out as a serious retainer.</p>
+        <div class="post-meta">
+          <span class="post-date">April 2026</span>
+          <span class="post-readtime">9 min read</span>
+        </div>
+        <span class="post-link">Read article →</span>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <span class="footer-logo">Hichem Bennaceur</span>
+  <div class="footer-links">
+    <a href="/" class="footer-link">← Home</a>
+    <a href="/dtc" class="footer-link">DTC</a>
+    <a href="/saas" class="footer-link">SaaS</a>
+    <a href="/agencies" class="footer-link">Agencies</a>
+  </div>
+</footer>
+
+<script>
+  const bar = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    if (bar) bar.style.width = pct + '%';
+  }, { passive: true });
+</script>
+
+</Layout>
