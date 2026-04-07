@@ -48,8 +48,42 @@ const ogImage = "https://hichembennaceur.com/images/og-social-preview.png";
     <link rel="icon" type="image/png" href="/images/profile-main.png" />
     <link rel="apple-touch-icon" href="/images/profile-main.png" />
     <title>{title}</title>
+    <!-- Font preconnects -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+
+    <!-- Fonts (non-render-blocking) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Archivo+Black&family=DM+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://hichembennaceur.com/#person",
+          "name": "Hichem Bennaceur",
+          "url": "https://hichembennaceur.com/",
+          "image": "https://hichembennaceur.com/images/profile-main.png",
+          "jobTitle": "CRO & Analytics Consultant",
+          "description": "Senior CRO and Analytics specialist helping DTC brands, SaaS companies, and agencies scale revenue through experimentation and data-driven optimisation.",
+          "sameAs": [
+            "https://www.linkedin.com/in/hichembennaceur/"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://hichembennaceur.com/#website",
+          "url": "https://hichembennaceur.com/",
+          "name": "Hichem Bennaceur",
+          "description": "Senior Analytics & CRO as a retainer. 3× the depth of a freelancer at ¼ the cost of an agency.",
+          "publisher": { "@id": "https://hichembennaceur.com/#person" }
+        }
+      ]
+    })} />
   </head>
   <body>
     <slot />
@@ -57,8 +91,6 @@ const ogImage = "https://hichembennaceur.com/images/og-social-preview.png";
 </html>
 
 <style is:global>
-  @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Archivo+Black&family=DM+Mono:wght@400;500&display=swap');
-
   /* ─── Neobrutalism Design Tokens ─── */
   :root {
     --yellow: #FDC800;
